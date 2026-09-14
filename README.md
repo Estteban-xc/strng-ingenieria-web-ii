@@ -113,4 +113,3 @@ REFRESH_TOKEN_SECRET=una-clave-secreta-diferente
 CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
 ```
 
-No se deben publicar los archivos `.env`. Para compartir el proyecto, utiliza un archivo `.env.example` con valores ficticios.
