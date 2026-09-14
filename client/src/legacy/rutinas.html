@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>STRNG | Rutinas de Entrenamiento</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../assets/images/simbolo.png" type="image/png">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="logo-wrap">
+      <img src="../assets/images/logo.png" alt="STRNG" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">STRNG</span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="rutinas.html" class="active">Rutinas</a></li>
+        <li><a href="alimentacion.html">Alimentación</a></li>
+        <li><a href="suplementacion.html">Suplementación</a></li>
+        <li><a href="implementos.html">Implementos</a></li>
+        <li><a href="IMC.html">Calc. IMC</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="tienda.html">🛒 Tienda</a></li>
+        <li><a href="rastreo.html">📦 Rastrear</a></li>
+        <li><a href="admin.html" style="color:var(--red-bright)">⚙️ Admin</a></li>
+      </ul>
+    </nav>
+    <div class="header-controls">
+      <button id="themeBtn">☀ CLARO</button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>FUERZA</span><span class="dot">•</span><span>HIPERTROFIA</span><span class="dot">•</span>
+    <span>RESISTENCIA</span><span class="dot">•</span><span>SIN EXCUSAS</span><span class="dot">•</span>
+    <span>CADA REP CUENTA</span><span class="dot">•</span><span>NO TE DETENGAS</span><span class="dot">•</span>
+    <span>FUERZA</span><span class="dot">•</span><span>HIPERTROFIA</span><span class="dot">•</span>
+    <span>RESISTENCIA</span><span class="dot">•</span><span>SIN EXCUSAS</span><span class="dot">•</span>
+    <span>CADA REP CUENTA</span><span class="dot">•</span><span>NO TE DETENGAS</span><span class="dot">•</span>
+  </div>
+</div>
+
+<div class="page-wrapper">
+
+  <!-- HERO PEQUEÑO -->
+  <div style="background: linear-gradient(180deg, rgba(214,48,49,0.08) 0%, transparent 100%); padding: 60px 0 20px; text-align:center;">
+    <div class="container">
+      <span class="section-label">// Planes de Entrenamiento</span>
+      <h1 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(3rem,8vw,6rem); letter-spacing:8px; color:var(--text); line-height:1;">
+        RUTINAS
+      </h1>
+      <p style="color:var(--text2); max-width:540px; margin:14px auto 0; font-size:1rem;">
+        Elige tu objetivo. Sigue el plan. Progresa cada semana. El resto es excusa.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ FUERZA ════════════════════════════════════ -->
+  <div class="section-block">
+    <div class="container">
+      <span class="section-label">// 01 — Objetivo: Fuerza</span>
+      <h2 class="section-title">ENTRENAMIENTO DE FUERZA</h2>
+      <div class="info-box fade-in" style="margin-bottom:40px;">
+        <h4>📋 Estructura del Programa</h4>
+        <p>3–4 días por semana · Series: 3–5 × 3–5 reps · Descanso: 3–5 min entre series · Progresión lineal de cargas</p>
+      </div>
+
+      <!-- Sentadilla -->
+      <div class="exercise-card fade-in" style="margin-bottom:24px;">
+        <img src="../assets/images/sentadilla.png"
+             alt="Sentadilla trasera" class="exercise-img"
+             >
+        <div class="exercise-body">
+          <div class="exercise-meta">
+            <span class="meta-pill red">Ejercicio Principal</span>
+            <span class="meta-pill">Piernas / Glúteos</span>
+            <span class="meta-pill">4 × 5 reps</span>
+          </div>
+          <h3 class="exercise-title">SENTADILLA TRASERA (SQUAT)</h3>
+          <p class="exercise-desc">El rey de los ejercicios. Trabaja cuádriceps, isquiotibiales, glúteos, core y espalda baja simultáneamente. Sin este movimiento, el progreso es incompleto.</p>
+          <ol class="exercise-steps">
+            <li><span class="step-num">01</span><span>Coloca la barra en los trapecios (sentadilla alta) o en la parte baja de los deltoides (sentadilla baja). Pies a la anchura de hombros o ligeramente más abiertos.</span></li>
+            <li><span class="step-num">02</span><span>Pecho arriba, mirada al frente, core activado. Inhala profundo antes de bajar.</span></li>
+            <li><span class="step-num">03</span><span>Baja controlando: rodillas en dirección de los pies, cadera por debajo de la línea de las rodillas (squat profundo).</span></li>
+            <li><span class="step-num">04</span><span>Empuja el suelo y sube exhalando. Mantén el torso rígido en todo momento.</span></li>
+            <li><span class="step-num">05</span><span>Descansa 3–5 minutos entre series para recuperación completa del sistema nervioso.</span></li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Peso muerto -->
+      <div class="exercise-card fade-in" style="margin-bottom:24px;">
+        <img src="../assets/images/pesopluma.png"
+             alt="Peso muerto" class="exercise-img"
+             >
+        <div class="exercise-body">
+          <div class="exercise-meta">
+            <span class="meta-pill red">Ejercicio Principal</span>
+            <span class="meta-pill">Cadena Posterior</span>
+            <span class="meta-pill">3 × 5 reps</span>
+          </div>
+          <h3 class="exercise-title">PESO MUERTO (DEADLIFT)</h3>
+          <p class="exercise-desc">El movimiento más completo del fitness. Activa desde los pies hasta el cuello. Si no estás haciendo peso muerto, estás dejando fuerza sobre la mesa.</p>
+          <ol class="exercise-steps">
+            <li><span class="step-num">01</span><span>Pies a la anchura de caderas, barra sobre el mediado del pie. Inclínate y agarra la barra con agarre prono o mixto.</span></li>
+            <li><span class="step-num">02</span><span>Espalda plana, pecho hacia arriba, hombros ligeramente por delante de la barra. Activa los dorsales "metiendo los codos en los bolsillos".</span></li>
+            <li><span class="step-num">03</span><span>Inhala, empuja el suelo con los pies y jala la barra pegada a las piernas. Caderas y hombros suben al mismo ritmo.</span></li>
+            <li><span class="step-num">04</span><span>Bloquea al final con caderas extendidas. Nunca hiperextiendas la espalda baja.</span></li>
+            <li><span class="step-num">05</span><span>Baja controlado o suelta la barra (si usas bumper plates). Descansa 3–5 min.</span></li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Video Press de Banca -->
+      <div class="section-video-wrap fade-in" style="margin-bottom:24px;">
+        <span class="section-label">// Tutorial en video</span>
+        <h3 style="font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:4px; color:var(--text); margin:10px 0 14px; line-height:1;">
+          TÉCNICA: PRESS DE BANCA
+        </h3>
+        <video
+          controls
+          preload="metadata"
+          poster="https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?w=900&q=80"
+          style="width:100%; border-radius:4px; border:1px solid var(--border); background:#000; display:block; max-height:480px;">
+          <source src="../assets/videos/press_banca_video.mp4" type="video/mp4">
+          Tu navegador no soporta el elemento de video HTML5.
+        </video>
+        <p style="color:var(--text3); font-size:0.78rem; margin-top:8px; font-family:'Barlow Condensed',sans-serif; letter-spacing:1px;">
+          Observa la técnica correcta antes de ejecutar el ejercicio.
+        </p>
+      </div>
+
+      <!-- Press de banca -->
+      <div class="exercise-card fade-in" style="margin-bottom:24px;">
+        <img src="../assets/images/banca.png"
+             alt="Press de banca" class="exercise-img"
+             >
+        <div class="exercise-body">
+          <div class="exercise-meta">
+            <span class="meta-pill red">Ejercicio Principal</span>
+            <span class="meta-pill">Pecho / Tríceps</span>
+            <span class="meta-pill">4 × 5 reps</span>
+          </div>
+          <h3 class="exercise-title">PRESS DE BANCA (BENCH PRESS)</h3>
+          <p class="exercise-desc">El movimiento de empuje por excelencia. Desarrolla pecho, hombros anteriores y tríceps. Fundamental en cualquier programa de fuerza.</p>
+          <ol class="exercise-steps">
+            <li><span class="step-num">01</span><span>Acuéstate en el banco con los ojos bajo la barra. Agarre ligeramente más ancho que los hombros, muñecas rectas.</span></li>
+            <li><span class="step-num">02</span><span>Retrae las escápulas ("parte los glúteos" en el banco), pies planos en el suelo, arco lumbar natural.</span></li>
+            <li><span class="step-num">03</span><span>Baja la barra controlado hacia la parte inferior del pecho, codos a ~45–75° del torso.</span></li>
+            <li><span class="step-num">04</span><span>Empuja explosivo hacia arriba describiendo un arco leve. No rebotas la barra en el pecho.</span></li>
+            <li><span class="step-num">05</span><span>Siempre usa spotter o rack de seguridad cuando trabajes cerca de tu máximo.</span></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ HIPERTROFIA ════════════════════════════ -->
+  <div class="section-block" style="background:var(--bg2);">
+    <div class="container">
+      <span class="section-label">// 02 — Objetivo: Hipertrofia</span>
+      <h2 class="section-title">ENTRENAMIENTO DE HIPERTROFIA</h2>
+      <div class="info-box fade-in" style="margin-bottom:40px;">
+        <h4>📋 Estructura del Programa</h4>
+        <p>4–5 días por semana · Series: 3–5 × 8–12 reps · Descanso: 60–90 seg · Enfocado en TUT (tiempo bajo tensión) y congestión muscular</p>
+      </div>
+
+      <div class="exercise-card fade-in" style="margin-bottom:24px;">
+        <img src="../assets/images/dominadas.png"
+             alt="Dominadas" class="exercise-img"
+             >
+        <div class="exercise-body">
+          <div class="exercise-meta">
+            <span class="meta-pill red">Compuesto</span>
+            <span class="meta-pill">Espalda / Bíceps</span>
+            <span class="meta-pill">4 × 8–10 reps</span>
+          </div>
+          <h3 class="exercise-title">DOMINADAS (PULL-UPS)</h3>
+          <p class="exercise-desc">El mejor ejercicio de espalda que existe. Si puedes hacer 10+ dominadas limpias, tu espalda lo va a notar. Progresa añadiendo peso con un cinturón de lastre.</p>
+          <ol class="exercise-steps">
+            <li><span class="step-num">01</span><span>Agarra la barra con agarre prono, manos a la anchura de hombros o ligeramente más anchas.</span></li>
+            <li><span class="step-num">02</span><span>Activa los dorsales retrayendo las escápulas antes de empezar a jalar. Cuerpo recto o con leve balanceo controlado.</span></li>
+            <li><span class="step-num">03</span><span>Jala hasta que el mentón pase la barra. No uses el cuello — contrae los dorsales.</span></li>
+            <li><span class="step-num">04</span><span>Baja lento y controlado hasta extensión completa (3–4 segundos). Esto es donde ocurre el daño muscular.</span></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="exercise-card fade-in" style="margin-bottom:24px;">
+        <img src="../assets/images/militar.png"
+             alt="Press militar" class="exercise-img"
+             >
+        <div class="exercise-body">
+          <div class="exercise-meta">
+            <span class="meta-pill red">Compuesto</span>
+            <span class="meta-pill">Hombros / Tríceps</span>
+            <span class="meta-pill">4 × 8–12 reps</span>
+          </div>
+          <h3 class="exercise-title">PRESS MILITAR (OVERHEAD PRESS)</h3>
+          <p class="exercise-desc">El movimiento de empuje vertical. Construye hombros anchos y tríceps potentes. Más funcional que cualquier máquina de hombros del gym.</p>
+          <ol class="exercise-steps">
+            <li><span class="step-num">01</span><span>De pie, pies a la anchura de hombros. Barra descansando en los deltoides frontales, codos ligeramente adelante.</span></li>
+            <li><span class="step-num">02</span><span>Activa glúteos y core. Empuja la barra vertical hacia arriba pasando la cara — mete la cabeza atrás mientras sube.</span></li>
+            <li><span class="step-num">03</span><span>Al bloquear arriba, mete la cabeza hacia delante, barra sobre la cabeza (no detrás).</span></li>
+            <li><span class="step-num">04</span><span>Baja controlado hasta el punto de inicio. No uses el momentum de las piernas si no es el objetivo.</span></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="exercise-card fade-in" style="margin-bottom:24px;">
+        <img src="../assets/images/bicep.png"
+             alt="Curl bíceps" class="exercise-img"
+             >
+        <div class="exercise-body">
+          <div class="exercise-meta">
+            <span class="meta-pill red">Aislamiento</span>
+            <span class="meta-pill">Bíceps</span>
+            <span class="meta-pill">3 × 10–12 reps</span>
+          </div>
+          <h3 class="exercise-title">CURL DE BÍCEPS CON BARRA</h3>
+          <p class="exercise-desc">Clásico e irrremplazable para construir picos de bíceps. El secreto está en la excéntrica lenta y el rango completo.</p>
+          <ol class="exercise-steps">
+            <li><span class="step-num">01</span><span>De pie, barra en agarre supino (palmas hacia arriba), codos pegados al cuerpo todo el movimiento.</span></li>
+            <li><span class="step-num">02</span><span>Curl hacia arriba contrayendo el bíceps. Pausa 1 segundo en la cima apretando al máximo.</span></li>
+            <li><span class="step-num">03</span><span>Baja en 3–4 segundos (excéntrica lenta). Esta es la clave del crecimiento.</span></li>
+            <li><span class="step-num">04</span><span>Extiende completamente el codo abajo para trabajar en rango completo. No uses el cuerpo para hacer momentum.</span></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ RESISTENCIA ════════════════════════════ -->
+  <div class="section-block">
+    <div class="container">
+      <span class="section-label">// 03 — Objetivo: Resistencia</span>
+      <h2 class="section-title">ENTRENAMIENTO DE RESISTENCIA</h2>
+      <div class="info-box fade-in" style="margin-bottom:40px;">
+        <h4>📋 Estructura del Programa</h4>
+        <p>3–6 días por semana · Circuitos HIIT, AMRAP, EMOM · Descanso: 20–45 seg · Alta densidad de trabajo · Ideal para pérdida de grasa y acondicionamiento</p>
+      </div>
+
+      <div class="grid-3 fade-in" style="gap:20px; margin-bottom:30px;">
+        <div class="card">
+          <img src="../assets/images/burpe.png"
+               alt="Burpees" class="card-img"
+               >
+          <div class="card-body">
+            <span class="card-tag">HIIT</span>
+            <h3 class="card-title">BURPEES</h3>
+            <p class="card-text">10 reps × 6 rondas con 30 seg descanso. El ejercicio más brutal para quemar grasa. Combina fuerza y cardio en un solo movimiento.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="../assets/images/sprint.png"
+               alt="Running" class="card-img"
+               >
+          <div class="card-body">
+            <span class="card-tag">Cardio</span>
+            <h3 class="card-title">SPRINTS</h3>
+            <p class="card-text">8 × 100m al 90%, descanso 90 seg. Los sprints transforman el cuerpo más rápido que cualquier cardio de baja intensidad.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="../assets/images/cuerda.png"
+               alt="Cuerda para saltar" class="card-img"
+               >
+          <div class="card-body">
+            <span class="card-tag">Circuito</span>
+            <h3 class="card-title">JUMP ROPE</h3>
+            <p class="card-text">5 × 3 minutos continuo, descanso 60 seg. Cuerda para saltar: el implemento más barato y efectivo del gym. Cardio, coordinación y resistencia.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Circuito HIIT -->
+      <div class="info-box fade-in">
+        <h4>🔥 Circuito HIIT Recomendado — 30 minutos</h4>
+        <ul style="margin-top:12px;">
+          <li><strong style="color:var(--text);">00:00–00:40</strong> — Burpees × 10 reps</li>
+          <li><strong style="color:var(--text);">00:40–01:00</strong> — Descanso activo (caminar)</li>
+          <li><strong style="color:var(--text);">01:00–01:40</strong> — Jump Squats × 15 reps</li>
+          <li><strong style="color:var(--text);">01:40–02:00</strong> — Descanso</li>
+          <li><strong style="color:var(--text);">02:00–02:40</strong> — Mountain Climbers × 30 reps</li>
+          <li><strong style="color:var(--text);">02:40–03:00</strong> — Descanso</li>
+          <li><em style="color:var(--text3);">Repite 6–8 rondas. Total: ~25–35 minutos.</em></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote-section fade-in">
+    <p class="quote-text">"Cuando tu mente dice <em>ya no más</em>, apenas llegaste al 40%."</p>
+    <p class="quote-author">— Mentalidad Navy SEAL</p>
+  </div>
+
+  <!-- NOTAS DE ENTRENAMIENTO -->
+  <div class="section-block">
+    <div class="container">
+      <span class="section-label">// NOTAS</span>
+      <h2 class="section-title">MIS NOTAS DE ENTRENAMIENTO</h2>
+      <p class="section-sub">Haz clic en el cuadro y escribe directamente tus observaciones, marcas personales o recordatorios.</p>
+
+      <div class="notes-wrap fade-in">
+        <div class="notes-toolbar">
+          <span class="notes-hint">✏️ Haz clic para editar</span>
+          <button class="notes-clear-btn" onclick="
+            const n = document.getElementById('misNotas');
+            n.textContent = '';
+            n.focus();
+          ">Limpiar</button>
+        </div>
+        <div
+          id="misNotas"
+          class="notes-editable"
+          contenteditable="true"
+          spellcheck="true"
+          aria-label="Notas de entrenamiento editables"
+        >Semana 1 — Press banca: 60 kg x 5 reps. Sentadilla: 80 kg x 3. Pendiente mejorar técnica en peso muerto.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-text">STRNG</span>
+      <p>Entrenamiento, nutrición y salud. Sin excusas, sin atajos.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="rutinas.html">Rutinas</a></li>
+        <li><a href="alimentacion.html">Alimentación</a></li>
+        <li><a href="suplementacion.html">Suplementación</a></li>
+        <li><a href="implementos.html">Implementos GYM</a></li>
+        <li><a href="IMC.html">Calculadora IMC</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Recursos</h4>
+      <ul>
+        <li><a href="https://www.acefitness.org" target="_blank" rel="noopener">ACE Fitness</a></li>
+        <li><a href="https://www.bodybuilding.com/exercises/" target="_blank" rel="noopener">Ejercicios BB.com</a></li>
+        <li><a href="https://www.healthline.com/nutrition" target="_blank" rel="noopener">Healthline Nutrición</a></li>
+        <li><a href="mailto:info@strng.com">info@strng.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 STRNG. Todos los derechos reservados.</p>
+    <p>Hecho para los que no se rinden.</p>
+  </div>
+</footer>
+
+<!-- AUDIO -->
+<audio id="bgAudio" loop preload="none" style="display:none;">
+  <source src="../assets/sounds/audio_fondo.mp3" type="audio/mpeg">
+</audio>
+
+<button id="audioBtn" title="Activar/desactivar música">🔇</button>
+
+<script src="../js/script.js"></script>
+</body>
+</html>

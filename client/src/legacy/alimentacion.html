@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>STRNG | Alimentación</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../assets/images/simbolo.png" type="image/png">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="logo-wrap">
+      <img src="../assets/images/logo.png" alt="STRNG" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">STRNG</span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="rutinas.html">Rutinas</a></li>
+        <li><a href="alimentacion.html" class="active">Alimentación</a></li>
+        <li><a href="suplementacion.html">Suplementación</a></li>
+        <li><a href="implementos.html">Implementos</a></li>
+        <li><a href="IMC.html">Calc. IMC</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="tienda.html">🛒 Tienda</a></li>
+        <li><a href="rastreo.html">📦 Rastrear</a></li>
+        <li><a href="admin.html" style="color:var(--red-bright)">⚙️ Admin</a></li>
+      </ul>
+    </nav>
+    <div class="header-controls">
+      <button id="themeBtn">☀ CLARO</button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>COME PARA RENDIR</span><span class="dot">•</span>
+    <span>LOS MÚSCULOS SE HACEN EN LA COCINA</span><span class="dot">•</span>
+    <span>PROTEÍNA ANTE TODO</span><span class="dot">•</span>
+    <span>COME PARA RENDIR</span><span class="dot">•</span>
+    <span>LOS MÚSCULOS SE HACEN EN LA COCINA</span><span class="dot">•</span>
+    <span>PROTEÍNA ANTE TODO</span><span class="dot">•</span>
+  </div>
+</div>
+
+<div class="page-wrapper">
+
+  <div style="background: linear-gradient(180deg, rgba(214,48,49,0.08) 0%, transparent 100%); padding: 60px 0 20px; text-align:center;">
+    <div class="container">
+      <span class="section-label">// Nutrición para el Rendimiento</span>
+      <h1 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(3rem,8vw,6rem); letter-spacing:8px; color:var(--text); line-height:1;">
+        ALIMENTACIÓN
+      </h1>
+      <p style="color:var(--text2); max-width:560px; margin:14px auto 0; font-size:1rem;">
+        El 70% de los resultados vienen de la cocina. No hay suplemento que reemplace una dieta correcta.
+      </p>
+    </div>
+  </div>
+
+  <!-- MACRONUTRIENTES -->
+  <div class="section-block">
+    <div class="container">
+      <span class="section-label">// 01 — Macronutrientes</span>
+      <h2 class="section-title">LOS TRES PILARES</h2>
+      <p class="section-sub">Los macronutrientes son la base de toda dieta. Distribuirlos correctamente según tu objetivo es el primer paso.</p>
+
+      <div class="macro-grid fade-in">
+        <div class="macro-card">
+          <span class="macro-icon">🥩</span>
+          <div class="macro-name">PROTEÍNA</div>
+          <p class="macro-desc">Bloque constructor del músculo. Esencial para la recuperación, el crecimiento muscular y el mantenimiento de tejidos.</p>
+          <span class="macro-pct">2–2.2g</span>
+          <span class="macro-pct-lbl">por kg de peso corporal</span>
+        </div>
+        <div class="macro-card">
+          <span class="macro-icon">🍚</span>
+          <div class="macro-name">CARBOHIDRATOS</div>
+          <p class="macro-desc">Fuente principal de energía. Combustible para entrenamientos intensos. Regula el rendimiento y el glucógeno muscular.</p>
+          <span class="macro-pct">3–6g</span>
+          <span class="macro-pct-lbl">por kg (según intensidad)</span>
+        </div>
+        <div class="macro-card">
+          <span class="macro-icon">🥑</span>
+          <div class="macro-name">GRASAS</div>
+          <p class="macro-desc">Regulan hormonas, absorben vitaminas y protegen articulaciones. No las elimines — elige las correctas.</p>
+          <span class="macro-pct">0.8–1g</span>
+          <span class="macro-pct-lbl">por kg de peso corporal</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALORÍAS POR OBJETIVO -->
+  <div class="section-block" style="background:var(--bg2);">
+    <div class="container">
+      <span class="section-label">// 02 — Calorías por Objetivo</span>
+      <h2 class="section-title">¿CUÁNTO DEBO COMER?</h2>
+      <div class="grid-3 fade-in" style="gap:20px; margin-bottom:30px;">
+
+        <div class="card" style="border-color:rgba(52,152,219,0.4);">
+          <div class="card-body">
+            <span class="card-tag" style="background:rgba(52,152,219,0.15); color:#3498db;">Déficit Calórico</span>
+            <h3 class="card-title">PERDER GRASA</h3>
+            <p class="card-text" style="margin-bottom:16px;">Consume 300–500 kcal menos que tu gasto total diario (TDEE).</p>
+            <div style="border-top:1px solid var(--border); padding-top:14px; display:flex; flex-direction:column; gap:8px;">
+              <div style="display:flex; justify-content:space-between; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem;">
+                <span style="color:var(--text2);">Proteína</span><span style="color:var(--text);">Alta (2.2–2.5g/kg)</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem;">
+                <span style="color:var(--text2);">Carbos</span><span style="color:var(--text);">Moderados</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem;">
+                <span style="color:var(--text2);">Grasas</span><span style="color:var(--text);">Moderadas</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem; padding-top:8px; border-top:1px solid var(--border);">
+                <span style="color:var(--text2);">Ejemplo (80kg)</span><span style="color:#3498db; font-weight:600;">~2,200 kcal</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="border-color:rgba(46,204,113,0.4);">
+          <div class="card-body">
+            <span class="card-tag" style="background:rgba(46,204,113,0.12); color:#2ecc71;">Mantenimiento</span>
+            <h3 class="card-title">MANTENER PESO</h3>
+            <p class="card-text" style="margin-bottom:16px;">Come exactamente tu TDEE. Ideal para recomposición corporal lenta.</p>
+            <div style="border-top:1px solid var(--border); padding-top:14px; display:flex; flex-direction:column; gap:8px;">
+              <div style="display:flex; justify-content:space-between; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem;">
+                <span style="color:var(--text2);">Proteína</span><span style="color:var(--text);">Alta (2g/kg)</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem;">
+                <span style="color:var(--text2);">Carbos</span><span style="color:var(--text);">Equilibrados</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem;">
+                <span style="color:var(--text2);">Grasas</span><span style="color:var(--text);">Equilibradas</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem; padding-top:8px; border-top:1px solid var(--border);">
+                <span style="color:var(--text2);">Ejemplo (80kg)</span><span style="color:#2ecc71; font-weight:600;">~2,700 kcal</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="border-color:rgba(214,48,49,0.4);">
+          <div class="card-body">
+            <span class="card-tag">Superávit Calórico</span>
+            <h3 class="card-title">GANAR MÚSCULO</h3>
+            <p class="card-text" style="margin-bottom:16px;">Consume 250–400 kcal por encima de tu TDEE para un volumen limpio (lean bulk).</p>
+            <div style="border-top:1px solid var(--border); padding-top:14px; display:flex; flex-direction:column; gap:8px;">
+              <div style="display:flex; justify-content:space-between; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem;">
+                <span style="color:var(--text2);">Proteína</span><span style="color:var(--text);">Alta (2–2.2g/kg)</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem;">
+                <span style="color:var(--text2);">Carbos</span><span style="color:var(--text);">Altos</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem;">
+                <span style="color:var(--text2);">Grasas</span><span style="color:var(--text);">Moderadas</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem; padding-top:8px; border-top:1px solid var(--border);">
+                <span style="color:var(--text2);">Ejemplo (80kg)</span><span style="color:var(--red); font-weight:600;">~3,000 kcal</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ALIMENTOS CLAVE -->
+  <div class="section-block">
+    <div class="container">
+      <span class="section-label">// 03 — Alimentos Top</span>
+      <h2 class="section-title">FUENTES PROTEICAS ESENCIALES</h2>
+      <div class="fade-in" style="background:var(--card-bg); border:1px solid var(--border); border-radius:4px; overflow:hidden;">
+        <table class="food-table">
+          <thead>
+            <tr>
+              <th>Alimento</th>
+              <th>Proteína / 100g</th>
+              <th>Calorías</th>
+              <th>Nota</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="food-name">Pechuga de pollo</td><td class="food-prot">31g</td><td style="color:var(--text2);">165 kcal</td><td style="color:var(--text3); font-size:0.82rem;">La fuente más económica y versátil</td></tr>
+            <tr><td class="food-name">Atún en agua</td><td class="food-prot">29g</td><td style="color:var(--text2);">120 kcal</td><td style="color:var(--text3); font-size:0.82rem;">Rico en omega-3, sin grasa</td></tr>
+            <tr><td class="food-name">Huevo entero</td><td class="food-prot">13g</td><td style="color:var(--text2);">155 kcal</td><td style="color:var(--text3); font-size:0.82rem;">El alimento más completo del mundo</td></tr>
+            <tr><td class="food-name">Carne res (90% magra)</td><td class="food-prot">26g</td><td style="color:var(--text2);">218 kcal</td><td style="color:var(--text3); font-size:0.82rem;">Creatina natural + hierro</td></tr>
+            <tr><td class="food-name">Salmón</td><td class="food-prot">25g</td><td style="color:var(--text2);">208 kcal</td><td style="color:var(--text3); font-size:0.82rem;">Omega-3 para inflamación y hormonas</td></tr>
+            <tr><td class="food-name">Requesón (cottage)</td><td class="food-prot">11g</td><td style="color:var(--text2);">98 kcal</td><td style="color:var(--text3); font-size:0.82rem;">Caseína lenta, ideal antes de dormir</td></tr>
+            <tr><td class="food-name">Pavo molido</td><td class="food-prot">29g</td><td style="color:var(--text2);">189 kcal</td><td style="color:var(--text3); font-size:0.82rem;">Alternativa magra a la carne roja</td></tr>
+            <tr><td class="food-name">Lentejas cocidas</td><td class="food-prot">9g</td><td style="color:var(--text2);">116 kcal</td><td style="color:var(--text3); font-size:0.82rem;">Proteína vegetal + fibra + carbos</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMING -->
+  <div class="section-block" style="background:var(--bg2);">
+    <div class="container">
+      <span class="section-label">// 04 — Timing Nutricional</span>
+      <h2 class="section-title">CUÁNDO COMER</h2>
+      <div class="grid-2 fade-in" style="gap:24px;">
+        <div class="info-box">
+          <h4>🌅 Pre-Entrenamiento (1–2h antes)</h4>
+          <p>Carbohidratos de absorción media + proteína moderada. Evita exceso de grasa y fibra que ralenticen la digestión.</p>
+          <ul style="margin-top:10px;">
+            <li>Arroz + pollo + verduras</li>
+            <li>Avena + proteína en polvo + fruta</li>
+            <li>Pan integral + atún + tomate</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h4>⚡ Intra-Entrenamiento (opcional)</h4>
+          <p>Para sesiones de más de 75–90 minutos. Carbos simples de rápida absorción.</p>
+          <ul style="margin-top:10px;">
+            <li>Bebida deportiva (Gatorade, Powerade)</li>
+            <li>Plátano / banano</li>
+            <li>Gel energético de carbohidratos</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h4>🔧 Post-Entrenamiento (30–60 min después)</h4>
+          <p>La ventana anabólica. Proteína rápida + carbos para rellenar glucógeno y arrancar la recuperación.</p>
+          <ul style="margin-top:10px;">
+            <li>Proteína whey + agua o leche</li>
+            <li>Pollo + arroz + brócoli</li>
+            <li>Huevos + patata/papa cocida</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h4>🌙 Pre-Sueño (30–60 min antes)</h4>
+          <p>Proteína de absorción lenta para mantener el anabolismo durante la noche.</p>
+          <ul style="margin-top:10px;">
+            <li>Requesón / cottage cheese</li>
+            <li>Caseína en polvo</li>
+            <li>Leche entera + cacao puro</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote-section fade-in">
+    <p class="quote-text">"La dieta no es un sacrificio. Es <em>elegir quién quieres ser</em> en cada comida."</p>
+    <p class="quote-author">— Mentalidad STRNG</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><span class="logo-text">STRNG</span><p>Sin excusas, sin atajos.</p></div>
+    <div class="footer-col"><h4>Páginas</h4><ul>
+      <li><a href="../index.html">Inicio</a></li>
+      <li><a href="rutinas.html">Rutinas</a></li>
+      <li><a href="alimentacion.html">Alimentación</a></li>
+      <li><a href="suplementacion.html">Suplementación</a></li>
+      <li><a href="implementos.html">Implementos GYM</a></li>
+      <li><a href="IMC.html">Calculadora IMC</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Contacto</h4><ul><li><a href="/cdn-cgi/l/email-protection#4f2c20213b2e2c3b200f3c3b3d212829263b612c2022"><span class="__cf_email__" data-cfemail="fd9e9293899c9e8992bd8e898f939a9b9489d39e9290">[email&#160;protected]</span></a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><!-- AUDIO -->
+<audio id="bgAudio" loop preload="none" style="display:none;">
+  <source src="../assets/sounds/audio_fondo.mp3" type="audio/mpeg">
+</audio>
+
+<button id="audioBtn" title="Activar/desactivar música">🔇</button>
+
+<script src="../js/script.js"></script>

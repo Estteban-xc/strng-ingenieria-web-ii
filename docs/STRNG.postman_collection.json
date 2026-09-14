@@ -1,0 +1,32 @@
+{
+  "info": { "name": "STRNG API - Ingeniería Web II", "description": "Pruebas de autenticación, catálogo, pedidos y repartidores.", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3001/api" },
+    { "key": "accessToken", "value": "" },
+    { "key": "refreshToken", "value": "" },
+    { "key": "productoId", "value": "" },
+    { "key": "paqueteId", "value": "" },
+    { "key": "guia", "value": "" },
+    { "key": "repartidorId", "value": "" }
+  ],
+  "item": [
+    { "name": "Health", "request": { "method": "GET", "url": "{{baseUrl}}/health" }, "event": [{ "listen": "test", "script": { "exec": ["pm.test('Health responde 200', () => pm.response.to.have.status(200));", "pm.test('ok es true', () => pm.expect(pm.response.json().ok).to.eql(true));"] } }] },
+    { "name": "Auth", "item": [
+      { "name": "Login", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"strng2025\"\n}" }, "url": "{{baseUrl}}/auth/login" }, "event": [{ "listen": "test", "script": { "exec": ["pm.test('Login correcto', () => pm.response.to.have.status(200));", "const data = pm.response.json();", "pm.collectionVariables.set('accessToken', data.accessToken);", "pm.collectionVariables.set('refreshToken', data.refreshToken);"] } }] },
+      { "name": "Verify token", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/auth/verify" }, "event": [{ "listen": "test", "script": { "exec": ["pm.test('Token válido', () => pm.response.to.have.status(200));"] } }] },
+      { "name": "Refresh token", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}" }, "url": "{{baseUrl}}/auth/refresh" }, "event": [{ "listen": "test", "script": { "exec": ["pm.test('Refresh correcto', () => pm.response.to.have.status(200));", "const data = pm.response.json();", "pm.collectionVariables.set('accessToken', data.accessToken);", "pm.collectionVariables.set('refreshToken', data.refreshToken);"] } }] }
+    ] },
+    { "name": "Productos", "item": [
+      { "name": "Listar catálogo público", "request": { "method": "GET", "url": "{{baseUrl}}/productos?disponible=true" }, "event": [{ "listen": "test", "script": { "exec": ["pm.test('Catálogo responde 200', () => pm.response.to.have.status(200));", "pm.test('La respuesta tiene productos', () => pm.expect(pm.response.json()).to.have.property('productos'));"] } }] },
+      { "name": "Crear producto protegido", "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }, { "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"PRODUCTO POSTMAN\",\n  \"marca\": \"STRNG\",\n  \"precio\": 1000,\n  \"categoria\": \"salud\",\n  \"stock\": 1\n}" }, "url": "{{baseUrl}}/productos" }, "event": [{ "listen": "test", "script": { "exec": ["pm.test('Producto creado', () => pm.response.to.have.status(201));", "pm.collectionVariables.set('productoId', pm.response.json().producto._id);"] } }] }
+    ] },
+    { "name": "Paquetes", "item": [
+      { "name": "Crear pedido", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"remitente\": { \"nombre\": \"STRNG Store\" },\n  \"destinatario\": { \"nombre\": \"Cliente Postman\", \"telefono\": \"3000000000\", \"direccion\": \"Calle de prueba 1\" },\n  \"total\": 1000\n}" }, "url": "{{baseUrl}}/paquetes" }, "event": [{ "listen": "test", "script": { "exec": ["pm.test('Paquete creado', () => pm.response.to.have.status(201));", "const p = pm.response.json().paquete;", "pm.collectionVariables.set('paqueteId', p._id);", "pm.collectionVariables.set('guia', p.guia);"] } }] },
+      { "name": "Rastrear guía", "request": { "method": "GET", "url": "{{baseUrl}}/paquetes/{{guia}}" }, "event": [{ "listen": "test", "script": { "exec": ["pm.test('Guía encontrada', () => pm.response.to.have.status(200));"] } }] }
+    ] },
+    { "name": "Repartidores", "item": [
+      { "name": "Listar protegidos", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/repartidores" }, "event": [{ "listen": "test", "script": { "exec": ["pm.test('Listado protegido', () => pm.response.to.have.status(200));"] } }] },
+      { "name": "Crear repartidor", "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }, { "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Repartidor Postman\",\n  \"telefono\": \"3000000001\",\n  \"vehiculo\": { \"tipo\": \"moto\", \"placa\": \"PST-001\" }\n}" }, "url": "{{baseUrl}}/repartidores" }, "event": [{ "listen": "test", "script": { "exec": ["pm.test('Repartidor creado', () => pm.response.to.have.status(201));", "pm.collectionVariables.set('repartidorId', pm.response.json().repartidor._id);"] } }] }
+    ] }
+  ]
+}

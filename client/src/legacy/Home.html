@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>STRNG | Entrenamiento y Salud</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/images/simbolo.png" type="image/png">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<!-- ══ HEADER ════════════════════════════════════════ -->
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo-wrap">
+      <img src="assets/images/logo.png" alt="STRNG" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">STRNG</span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Inicio</a></li>
+        <li><a href="pages/rutinas.html">Rutinas</a></li>
+        <li><a href="pages/alimentacion.html">Alimentación</a></li>
+        <li><a href="pages/suplementacion.html">Suplementación</a></li>
+        <li><a href="pages/implementos.html">Implementos</a></li>
+        <li><a href="pages/IMC.html">Calc. IMC</a></li>
+        <li><a href="pages/contacto.html">Contacto</a></li>
+        <li><a href="pages/tienda.html">🛒 Tienda</a></li>
+        <li><a href="pages/rastreo.html">📦 Rastrear</a></li>
+        <li><a href="pages/admin.html" style="color:var(--red-bright)">⚙️ Admin</a></li>
+      </ul>
+    </nav>
+    <div class="header-controls">
+      <button id="themeBtn">☀ CLARO</button>
+      <button class="hamburger" id="hamburger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ══ TICKER ════════════════════════════════════════ -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>NO PAIN NO GAIN</span><span class="dot">•</span>
+    <span>LEVANTA O CALLA</span><span class="dot">•</span>
+    <span>EL HIERRO NO MIENTE</span><span class="dot">•</span>
+    <span>SUFFER NOW. SHINE LATER</span><span class="dot">•</span>
+    <span>TU MENTE SE RINDE PRIMERO</span><span class="dot">•</span>
+    <span>STRNG 2026</span><span class="dot">•</span>
+    <!-- repeat for seamless -->
+    <span>NO PAIN NO GAIN</span><span class="dot">•</span>
+    <span>LEVANTA O CALLA</span><span class="dot">•</span>
+    <span>EL HIERRO NO MIENTE</span><span class="dot">•</span>
+    <span>SUFFER NOW. SHINE LATER</span><span class="dot">•</span>
+    <span>TU MENTE SE RINDE PRIMERO</span><span class="dot">•</span>
+    <span>STRNG 2026</span><span class="dot">•</span>
+  </div>
+</div>
+
+<!-- ══ HERO ══════════════════════════════════════════ -->
+<div class="page-wrapper">
+
+  <section class="hero">
+    <span class="hero-bg-text">STRNG</span>
+    <div class="hero-content">
+      <p class="hero-eyebrow">— Bienvenido a STRNG —</p>
+
+      <!-- SVG — ícono decorativo de barra de pesas -->
+      <svg class="hero-svg-dumbbell" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 32" aria-label="Barra de pesas">
+        <!-- barra central -->
+        <rect x="30" y="14" width="60" height="4" rx="2" fill="currentColor"/>
+        <!-- disco izquierdo exterior -->
+        <rect x="4" y="6" width="10" height="20" rx="3" fill="currentColor"/>
+        <!-- disco izquierdo interior -->
+        <rect x="16" y="9" width="7" height="14" rx="2" fill="currentColor"/>
+        <!-- mango izquierdo -->
+        <rect x="23" y="12" width="7" height="8" rx="1" fill="currentColor"/>
+        <!-- mango derecho -->
+        <rect x="90" y="12" width="7" height="8" rx="1" fill="currentColor"/>
+        <!-- disco derecho interior -->
+        <rect x="97" y="9" width="7" height="14" rx="2" fill="currentColor"/>
+        <!-- disco derecho exterior -->
+        <rect x="106" y="6" width="10" height="20" rx="3" fill="currentColor"/>
+      </svg>
+
+      <h1>
+        EL DOLOR ES
+        <em>TEMPORAL</em>
+      </h1>
+      <p class="hero-sub">
+        La debilidad es una decisión. La grandeza también. Elige con cada repetición.
+      </p>
+      <div class="hero-cta">
+        <a href="pages/rutinas.html" class="btn btn-primary">VER RUTINAS</a>
+        <a href="pages/IMC.html" class="btn btn-outline">CALCULAR IMC</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ STATS ════════════════════════════════════ -->
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div class="stat fade-in">
+        <span class="stat-num" data-count="12" data-suffix="+">12+</span>
+        <span class="stat-lbl">Rutinas Disponibles</span>
+      </div>
+      <div class="stat fade-in">
+        <span class="stat-num" data-count="5" data-suffix="">5</span>
+        <span class="stat-lbl">Secciones Completas</span>
+      </div>
+      <div class="stat fade-in">
+        <span class="stat-num" data-count="0" data-suffix="">0</span>
+        <span class="stat-lbl">Excusas Aceptadas</span>
+      </div>
+      <div class="stat fade-in">
+        <span class="stat-num" data-count="100" data-suffix="%">100%</span>
+        <span class="stat-lbl">Compromiso Requerido</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ INTRO ════════════════════════════════════ -->
+  <div class="section-block">
+    <div class="container">
+      <div class="grid-2" style="gap:50px; align-items:center;">
+        <div class="fade-in">
+          <span class="section-label">// 01 — Qué es STRNG</span>
+          <h2 class="section-title">ENTRENAMIENTO INTELIGENTE</h2>
+          <p class="section-sub">Una guía completa para quienes toman en serio su físico y su salud.</p>
+          <p style="color:var(--text2); margin-bottom:16px; font-size:0.95rem; line-height:1.7;">
+            El entrenamiento en gimnasio es una forma de actividad física estructurada que busca
+            mejorar la fuerza, la resistencia, la composición corporal y la salud general.
+            No existe un camino corto — existe la disciplina diaria.
+          </p>
+          <p style="color:var(--text2); font-size:0.95rem; line-height:1.7;">
+            A través del uso de pesas, máquinas y ejercicios funcionales, es posible adaptar
+            el entrenamiento a distintos niveles y objetivos: ganancia muscular,
+            pérdida de grasa, o rendimiento atlético.
+          </p>
+          <a href="pages/rutinas.html" class="btn btn-primary" style="margin-top:28px;">EXPLORAR RUTINAS</a>
+        </div>
+        <div class="fade-in" style="display:grid; gap:16px;">
+          <img src="assets/images/gym.png"
+               alt="Gimnasio oscuro con pesas"
+               style="width:100%; height:280px; object-fit:cover; border-radius:4px; border:1px solid var(--border);"
+               onerror="this.src='https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80'">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ QUOTE ════════════════════════════════════ -->
+  <div class="quote-section fade-in">
+    <p class="quote-text">
+      "Cada vez que quieras renunciar, recuerda <em>por qué empezaste</em>."
+    </p>
+    <p class="quote-author">— Filosofía STRNG</p>
+  </div>
+
+  <!-- ══ SECTIONS PREVIEW ════════════════════════ -->
+  <div class="section-block">
+    <div class="container">
+      <span class="section-label">// Lo que encontrarás</span>
+      <h2 class="section-title">TODO LO QUE NECESITAS</h2>
+      <p class="section-sub">Cinco secciones completas para llevar tu entrenamiento al siguiente nivel.</p>
+      <div class="grid-3" style="gap:20px;">
+
+        <a href="pages/rutinas.html" class="card fade-in" style="text-decoration:none;">
+          <img src="assets/images/rutinas.png"
+               alt="Rutinas de fuerza" class="card-img"
+               onerror="this.src='https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=80'">
+          <div class="card-body">
+            <span class="card-tag">Entrenamiento</span>
+            <h3 class="card-title">RUTINAS</h3>
+            <p class="card-text">Fuerza, hipertrofia y resistencia. Planes con imágenes y guías paso a paso.</p>
+          </div>
+        </a>
+
+        <a href="pages/alimentacion.html" class="card fade-in" style="text-decoration:none;">
+          <img src="assets/images/alimentacion.png"
+               alt="Alimentación" class="card-img"
+               onerror="this.src='https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=500&q=80'">
+          <div class="card-body">
+            <span class="card-tag">Nutrición</span>
+            <h3 class="card-title">ALIMENTACIÓN</h3>
+            <p class="card-text">Macros, alimentos esenciales y planes calóricos para cada objetivo.</p>
+          </div>
+        </a>
+
+        <a href="pages/suplementacion.html" class="card fade-in" style="text-decoration:none;">
+          <img src="assets/images/suples.png"
+               alt="Suplementos" class="card-img"
+               onerror="this.src='https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=500&q=80'">
+          <div class="card-body">
+            <span class="card-tag">Suplementación</span>
+            <h3 class="card-title">SUPLEMENTOS</h3>
+            <p class="card-text">Los mejores suplementos del mercado, cuándo usarlos y dónde comprarlos.</p>
+          </div>
+        </a>
+
+        <a href="pages/implementos.html" class="card fade-in" style="text-decoration:none;">
+          <img src="assets/images/implementos.png"
+               alt="Implementos gym" class="card-img"
+               onerror="this.src='https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=500&q=80'">
+          <div class="card-body">
+            <span class="card-tag">Equipamiento</span>
+            <h3 class="card-title">IMPLEMENTOS GYM</h3>
+            <p class="card-text">Guía de equipos esenciales: desde las mancuernas hasta la ropa técnica.</p>
+          </div>
+        </a>
+
+        <a href="pages/IMC.html" class="card fade-in" style="text-decoration:none;">
+          <img src="assets/images/IMC.png"
+               alt="Calculadora IMC" class="card-img"
+               onerror="this.src='https://images.unsplash.com/photo-1576678927484-cc907957088c?w=500&q=80'">
+          <div class="card-body">
+            <span class="card-tag">Herramienta</span>
+            <h3 class="card-title">CALCULADORA IMC</h3>
+            <p class="card-text">Conoce tu índice de masa corporal y qué dice sobre tu salud actual.</p>
+          </div>
+        </a>
+
+        <div class="card fade-in" style="display:flex; align-items:center; justify-content:center; min-height:300px; background:var(--red-dim); border-color:rgba(214,48,49,0.3);">
+          <div style="text-align:center; padding:30px;">
+            <span style="font-size:3rem;">🔥</span>
+            <h3 class="card-title" style="margin-top:14px;">EMPIEZA HOY</h3>
+            <p class="card-text" style="margin-top:8px;">No mañana. No el lunes. Ahora.</p>
+            <a href="pages/rutinas.html" class="btn btn-primary" style="margin-top:20px;">COMENZAR</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TÉCNICA SEGURA ══════════════════════════ -->
+  <div class="section-block" style="background:var(--bg2);">
+    <div class="container">
+      <div class="grid-2 fade-in" style="gap:50px; align-items:center;">
+        <div>
+          <img src="assets/images/rack.png"
+               alt="Técnica correcta en gym"
+               style="width:100%; height:280px; object-fit:cover; border-radius:4px; border:1px solid var(--border);"
+               onerror="this.src='https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80'">
+        </div>
+        <div>
+          <span class="section-label">// 02 — Seguridad</span>
+          <h2 class="section-title">TÉCNICA ANTES QUE PESO</h2>
+          <p style="color:var(--text2); margin-bottom:14px; font-size:0.95rem; line-height:1.7;">
+            La correcta ejecución de los ejercicios es fundamental para evitar lesiones y
+            maximizar los resultados. Más peso con mala técnica solo te aleja del objetivo.
+          </p>
+          <p style="color:var(--text2); font-size:0.95rem; line-height:1.7;">
+            Mantener una buena postura, controlar el movimiento en toda la amplitud y
+            usar cargas adecuadas permite un desarrollo muscular equilibrado y sostenible.
+          </p>
+          <div class="info-box" style="margin-top:24px;">
+            <h4>Principios clave</h4>
+            <ul>
+              <li>Domina el movimiento con peso corporal antes de añadir carga</li>
+              <li>Nunca sacrifiques rango de movimiento por más peso</li>
+              <li>El dolor articular no es igual que el dolor muscular</li>
+              <li>Consulta siempre con un entrenador certificado</li>
+            </ul>
+          </div>
+          <a href="https://www.cdc.gov/physicalactivity/basics/index.htm" target="_blank" rel="noopener"
+             class="btn btn-outline" style="margin-top:20px;">Ver guía CDC →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ RECURSOS ════════════════════════════════ -->
+  <div class="section-block">
+    <div class="container">
+      <span class="section-label">// Recursos Externos</span>
+      <h2 class="section-title">FUENTES CONFIABLES</h2>
+      <div class="grid-3 fade-in" style="gap:16px;">
+        <div class="info-box">
+          <h4>ACE Fitness</h4>
+          <p>Biblioteca de ejercicios con guías de ejecución para todos los niveles.</p>
+          <a href="https://www.acefitness.org/education-and-resources/lifestyle/exercise-library/" target="_blank" rel="noopener" style="display:inline-block; margin-top:10px; font-size:0.85rem;">Visitar sitio →</a>
+        </div>
+        <div class="info-box">
+          <h4>Healthline Nutrición</h4>
+          <p>Guías de nutrición basadas en evidencia científica para atletas.</p>
+          <a href="https://www.healthline.com/nutrition" target="_blank" rel="noopener" style="display:inline-block; margin-top:10px; font-size:0.85rem;">Visitar sitio →</a>
+        </div>
+        <div class="info-box">
+          <h4>OMS — Actividad Física</h4>
+          <p>Recomendaciones mundiales de actividad física para salud y longevidad.</p>
+          <a href="https://www.who.int/news-room/fact-sheets/detail/physical-activity" target="_blank" rel="noopener" style="display:inline-block; margin-top:10px; font-size:0.85rem;">Visitar sitio →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end page-wrapper -->
+
+<!-- ══ FOOTER ════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-text">STRNG</span>
+      <p>Entrenamiento, nutrición y salud. Sin excusas, sin atajos.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Páginas</h4>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="pages/rutinas.html">Rutinas</a></li>
+        <li><a href="pages/alimentacion.html">Alimentación</a></li>
+        <li><a href="pages/suplementacion.html">Suplementación</a></li>
+        <li><a href="pages/implementos.html">Implementos GYM</a></li>
+        <li><a href="pages/IMC.html">Calculadora IMC</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Recursos</h4>
+      <ul>
+        <li><a href="https://www.acefitness.org" target="_blank" rel="noopener">ACE Fitness</a></li>
+        <li><a href="https://www.bodybuilding.com/exercises/" target="_blank" rel="noopener">Ejercicios BB.com</a></li>
+        <li><a href="https://www.healthline.com/nutrition" target="_blank" rel="noopener">Healthline Nutrición</a></li>
+        <li><a href="mailto:info@strng.com">info@strng.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 STRNG. Todos los derechos reservados.</p>
+    <p>Hecho para los que no se rinden.</p>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>STRNG | Suplementación</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../assets/images/simbolo.png" type="image/png">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="logo-wrap">
+      <img src="../assets/images/logo.png" alt="STRNG" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">STRNG</span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="rutinas.html">Rutinas</a></li>
+        <li><a href="alimentacion.html">Alimentación</a></li>
+        <li><a href="suplementacion.html" class="active">Suplementación</a></li>
+        <li><a href="implementos.html">Implementos</a></li>
+        <li><a href="IMC.html">Calc. IMC</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="tienda.html">🛒 Tienda</a></li>
+        <li><a href="rastreo.html">📦 Rastrear</a></li>
+        <li><a href="admin.html" style="color:var(--red-bright)">⚙️ Admin</a></li>
+      </ul>
+    </nav>
+    <div class="header-controls">
+      <button id="themeBtn">☀ CLARO</button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>PRIMERO LA DIETA</span><span class="dot">•</span>
+    <span>LUEGO LOS SUPLEMENTOS</span><span class="dot">•</span>
+    <span>LA CIENCIA RESPALDA POCOS</span><span class="dot">•</span>
+    <span>ÚSALOS BIEN</span><span class="dot">•</span>
+    <span>PRIMERO LA DIETA</span><span class="dot">•</span>
+    <span>LUEGO LOS SUPLEMENTOS</span><span class="dot">•</span>
+    <span>LA CIENCIA RESPALDA POCOS</span><span class="dot">•</span>
+    <span>ÚSALOS BIEN</span><span class="dot">•</span>
+  </div>
+</div>
+
+<div class="page-wrapper">
+
+  <div style="background: linear-gradient(180deg, rgba(214,48,49,0.08) 0%, transparent 100%); padding: 60px 0 20px; text-align:center;">
+    <div class="container">
+      <span class="section-label">// Guía de Suplementación</span>
+      <h1 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(3rem,8vw,6rem); letter-spacing:8px; color:var(--text); line-height:1;">
+        SUPLEMENTACIÓN
+      </h1>
+      <p style="color:var(--text2); max-width:580px; margin:14px auto 0; font-size:1rem; line-height:1.7;">
+        Los suplementos son exactamente eso: <em style="color:var(--red-bright);">suplementos</em>. Complementan una dieta sólida, 
+        no la reemplazan. Aquí solo encontrarás los que tienen evidencia científica real.
+      </p>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="container" style="padding-top:40px;">
+    <div class="info-box fade-in" style="background:var(--red-dim); border-left-color:var(--red);">
+      <h4>⚠️ Antes de suplementarte</h4>
+      <p>Ningún suplemento reemplaza la alimentación, el descanso y el entrenamiento consistente. Consulta con un médico o nutricionista antes de comenzar cualquier protocolo de suplementación. Los resultados varían según persona y objetivo.</p>
+    </div>
+  </div>
+
+  <!-- TIER 1: FUNDAMENTALES -->
+  <div class="section-block">
+    <div class="container">
+      <span class="section-label">// Nivel 1 — Evidencia Sólida</span>
+      <h2 class="section-title">SUPLEMENTOS FUNDAMENTALES</h2>
+      <p class="section-sub">Respaldados por ciencia, usados por atletas de élite en todo el mundo.</p>
+
+      <div class="supp-grid fade-in">
+
+        <!-- Creatina -->
+        <div class="supp-card">
+          <span class="supp-icon">💪</span>
+          <div class="supp-name">CREATINA</div>
+          <span class="supp-category">Potencia / Fuerza / Masa</span>
+          <p class="supp-desc">El suplemento más estudiado y efectivo del mundo. Aumenta el rendimiento en esfuerzos máximos de corta duración (sprints, levantamientos pesados) al rellenar el ATP muscular.</p>
+          <ul class="supp-benefits">
+            <li>Aumenta fuerza y potencia hasta un 8–15%</li>
+            <li>Acelera la recuperación muscular</li>
+            <li>Aumenta el volumen muscular (retención de agua intramuscular)</li>
+            <li>Mejora el rendimiento cognitivo</li>
+          </ul>
+          <div class="info-box" style="margin-bottom:16px; padding:14px 16px;">
+            <h4 style="font-size:0.8rem; margin-bottom:6px;">📋 Protocolo</h4>
+            <p style="font-size:0.82rem;">3–5g/día. Sin fase de carga necesaria. En cualquier momento del día. Monohidrato de creatina = la mejor relación calidad/precio.</p>
+          </div>
+          <div class="supp-buy">
+            <p style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; letter-spacing:3px; text-transform:uppercase; color:var(--text3); margin-bottom:4px;">Dónde comprar:</p>
+            <a href="https://www.optimumnutrition.com" target="_blank" rel="noopener" class="buy-link">
+              Optimum Nutrition (ON) <span>→</span>
+            </a>
+            <a href="https://es.myprotein.com/sports-nutrition/creatine-monohydrate/10852500.html" target="_blank" rel="noopener" class="buy-link">
+              MyProtein.com <span>→</span>
+            </a>
+            <a href="https://www.gnc.com" target="_blank" rel="noopener" class="buy-link">
+              GNC (tiendas físicas) <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Whey Protein -->
+        <div class="supp-card">
+          <span class="supp-icon">🥛</span>
+          <div class="supp-name">PROTEÍNA WHEY</div>
+          <span class="supp-category">Masa Muscular / Recuperación</span>
+          <p class="supp-desc">Proteína de suero de leche de absorción rápida. Ideal post-entrenamiento o cuando no puedes conseguir proteína completa de la dieta. Alta biodisponibilidad.</p>
+          <ul class="supp-benefits">
+            <li>25–30g de proteína por servicio</li>
+            <li>Rico en leucina (activa la síntesis proteica)</li>
+            <li>Absorción rápida: ideal en los 30–60 min post-entrenamiento</li>
+            <li>Cómodo y económico como suplemento proteico</li>
+          </ul>
+          <div class="info-box" style="margin-bottom:16px; padding:14px 16px;">
+            <h4 style="font-size:0.8rem; margin-bottom:6px;">📋 Protocolo</h4>
+            <p style="font-size:0.82rem;">1–2 scoops post-entrenamiento o entre comidas. Busca mínimo 20g de proteína por servicio. Whey isolate si tienes intolerancia a la lactosa.</p>
+          </div>
+          <div class="supp-buy">
+            <p style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; letter-spacing:3px; text-transform:uppercase; color:var(--text3); margin-bottom:4px;">Dónde comprar:</p>
+            <a href="https://www.optimumnutrition.com/en-us/Products/Protein/Whey-Protein/c/OptimumNutritionWheyProtein" target="_blank" rel="noopener" class="buy-link">
+              ON Gold Standard Whey <span>→</span>
+            </a>
+            <a href="https://es.myprotein.com/sports-nutrition/impact-whey-protein/10530943.html" target="_blank" rel="noopener" class="buy-link">
+              MyProtein Impact Whey <span>→</span>
+            </a>
+            <a href="https://www.dymatize.com" target="_blank" rel="noopener" class="buy-link">
+              Dymatize ISO100 <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Cafeína -->
+        <div class="supp-card">
+          <span class="supp-icon">☕</span>
+          <div class="supp-name">CAFEÍNA</div>
+          <span class="supp-category">Energía / Rendimiento / Focus</span>
+          <p class="supp-desc">Estimulante más consumido del mundo y uno de los ergogénicos más respaldados por ciencia. Aumenta la alerta, reduce la percepción de esfuerzo y mejora el rendimiento aeróbico y anaeróbico.</p>
+          <ul class="supp-benefits">
+            <li>Mejora el rendimiento físico hasta un 11–12%</li>
+            <li>Reduce percepción de fatiga y esfuerzo</li>
+            <li>Aumenta la quema de grasa como combustible</li>
+            <li>Mejora el foco y la concentración</li>
+          </ul>
+          <div class="info-box" style="margin-bottom:16px; padding:14px 16px;">
+            <h4 style="font-size:0.8rem; margin-bottom:6px;">📋 Protocolo</h4>
+            <p style="font-size:0.82rem;">3–6 mg/kg de peso corporal, 30–60 min antes de entrenar. Cicla: toma 5–6 días y descansa 1–2. Evita después de las 4 PM para no afectar el sueño.</p>
+          </div>
+          <div class="supp-buy">
+            <p style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; letter-spacing:3px; text-transform:uppercase; color:var(--text3); margin-bottom:4px;">Dónde comprar:</p>
+            <a href="https://www.amazon.com/s?k=caffeine+pills+200mg" target="_blank" rel="noopener" class="buy-link">
+              Cápsulas de cafeína 200mg (Amazon) <span>→</span>
+            </a>
+            <a href="https://es.myprotein.com/sports-nutrition/caffeine-tablets/10529832.html" target="_blank" rel="noopener" class="buy-link">
+              MyProtein Cafeína <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Beta-Alanina -->
+        <div class="supp-card">
+          <span class="supp-icon">⚡</span>
+          <div class="supp-name">BETA-ALANINA</div>
+          <span class="supp-category">Resistencia / Capacidad Muscular</span>
+          <p class="supp-desc">Precursor de la carnosina muscular. Retrasa la acidificación del músculo durante esfuerzos de alta intensidad, permitiendo hacer más reps antes de fallar.</p>
+          <ul class="supp-benefits">
+            <li>Aumenta carnosina muscular hasta un 80%</li>
+            <li>Mejora la resistencia en esfuerzos de 1–4 minutos</li>
+            <li>Reduce la fatiga muscular en sets de 8–15 reps</li>
+            <li>Sinergia perfecta con creatina</li>
+          </ul>
+          <div class="info-box" style="margin-bottom:16px; padding:14px 16px;">
+            <h4 style="font-size:0.8rem; margin-bottom:6px;">📋 Protocolo</h4>
+            <p style="font-size:0.82rem;">3.2–6.4g/día dividido en 2 tomas. Produce parestesia (hormigueo) inofensiva. Se acumula en el tiempo — los beneficios se ven en 4+ semanas de uso continuo.</p>
+          </div>
+          <div class="supp-buy">
+            <p style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; letter-spacing:3px; text-transform:uppercase; color:var(--text3); margin-bottom:4px;">Dónde comprar:</p>
+            <a href="https://es.myprotein.com/sports-nutrition/beta-alanine/10851910.html" target="_blank" rel="noopener" class="buy-link">
+              MyProtein Beta-Alanina <span>→</span>
+            </a>
+            <a href="https://www.nowfoods.com" target="_blank" rel="noopener" class="buy-link">
+              NOW Foods Beta-Alanine <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Omega-3 -->
+        <div class="supp-card">
+          <span class="supp-icon">🐟</span>
+          <div class="supp-name">OMEGA-3</div>
+          <span class="supp-category">Salud / Anti-inflamatorio / Hormonas</span>
+          <p class="supp-desc">Ácidos grasos esenciales EPA y DHA. Fundamentales para la salud cardiovascular, la función cerebral, la reducción de inflamación y la producción hormonal.</p>
+          <ul class="supp-benefits">
+            <li>Reduce inflamación muscular post-entrenamiento</li>
+            <li>Mejora la sensibilidad a la insulina</li>
+            <li>Apoya la producción de testosterona</li>
+            <li>Beneficios cardiovasculares y cognitivos</li>
+          </ul>
+          <div class="info-box" style="margin-bottom:16px; padding:14px 16px;">
+            <h4 style="font-size:0.8rem; margin-bottom:6px;">📋 Protocolo</h4>
+            <p style="font-size:0.82rem;">2–4g/día de EPA+DHA combinados. Toma con las comidas para mejor absorción. Busca aceite de pescado de alta concentración (mínimo 60% EPA+DHA).</p>
+          </div>
+          <div class="supp-buy">
+            <p style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; letter-spacing:3px; text-transform:uppercase; color:var(--text3); margin-bottom:4px;">Dónde comprar:</p>
+            <a href="https://www.nordicnaturals.com" target="_blank" rel="noopener" class="buy-link">
+              Nordic Naturals (premium) <span>→</span>
+            </a>
+            <a href="https://es.myprotein.com/sports-nutrition/omega-3-fish-oil/10571470.html" target="_blank" rel="noopener" class="buy-link">
+              MyProtein Omega-3 <span>→</span>
+            </a>
+            <a href="https://www.gnc.com" target="_blank" rel="noopener" class="buy-link">
+              GNC Triple Strength Fish Oil <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Vitamina D -->
+        <div class="supp-card">
+          <span class="supp-icon">☀️</span>
+          <div class="supp-name">VITAMINA D3</div>
+          <span class="supp-category">Salud / Testosterona / Huesos</span>
+          <p class="supp-desc">La vitamina más deficiente en la población moderna. Esencial para la síntesis de testosterona, la salud ósea, el sistema inmune y la función muscular.</p>
+          <ul class="supp-benefits">
+            <li>Apoya niveles saludables de testosterona</li>
+            <li>Fortalece el sistema inmune</li>
+            <li>Mejora la absorción de calcio para huesos fuertes</li>
+            <li>Regula el humor y reduce el riesgo de depresión</li>
+          </ul>
+          <div class="info-box" style="margin-bottom:16px; padding:14px 16px;">
+            <h4 style="font-size:0.8rem; margin-bottom:6px;">📋 Protocolo</h4>
+            <p style="font-size:0.82rem;">2,000–5,000 IU/día de D3. Toma con la comida de grasa más alta del día para mejor absorción. Idealmente junto con vitamina K2 (MK-7) para direccionar el calcio.</p>
+          </div>
+          <div class="supp-buy">
+            <p style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; letter-spacing:3px; text-transform:uppercase; color:var(--text3); margin-bottom:4px;">Dónde comprar:</p>
+            <a href="https://www.amazon.com/s?k=vitamin+d3+k2+5000iu" target="_blank" rel="noopener" class="buy-link">
+              Vitamina D3+K2 (Amazon) <span>→</span>
+            </a>
+            <a href="https://es.myprotein.com" target="_blank" rel="noopener" class="buy-link">
+              MyProtein Vitamina D3 <span>→</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- TIER 2: OPCIONALES -->
+  <div class="section-block" style="background:var(--bg2);">
+    <div class="container">
+      <span class="section-label">// Nivel 2 — Opcionales Respaldados</span>
+      <h2 class="section-title">SUPLEMENTOS SECUNDARIOS</h2>
+      <p class="section-sub">Útiles en contextos específicos. No esenciales pero sí efectivos si ya tienes los fundamentales cubiertos.</p>
+
+      <div class="grid-3 fade-in" style="gap:20px;">
+        <div class="card">
+          <div class="card-body">
+            <span class="card-tag">Para Masa</span>
+            <h3 class="card-title">GAINERS (MASS)</h3>
+            <p class="card-text">Mezclas de carbos + proteína hipercalóricas. Útiles para ectomorfos con dificultad para comer suficiente. Ojo con el exceso de azúcar en versiones baratas.</p>
+            <p style="margin-top:12px; font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; color:var(--text3); letter-spacing:2px;">RECOMENDADO: Serious Mass (ON) · MyProtein Weight Gainer</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <span class="card-tag">Para Energía</span>
+            <h3 class="card-title">PRE-ENTRENO</h3>
+            <p class="card-text">Mezclas de cafeína, beta-alanina, citrulina y otros ergogénicos. Convenientes pero caros vs. comprar los ingredientes por separado. Cuidado con el exceso de estimulantes.</p>
+            <p style="margin-top:12px; font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; color:var(--text3); letter-spacing:2px;">RECOMENDADO: C4 (Cellucor) · Ghost Legend · Nitraflex</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <span class="card-tag">Para Recuperación</span>
+            <h3 class="card-title">MAGNESIO</h3>
+            <p class="card-text">Mineral involucrado en 300+ procesos enzimáticos. La mayoría de personas son deficientes. Mejora el sueño profundo, la recuperación muscular y reduce calambres.</p>
+            <p style="margin-top:12px; font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; color:var(--text3); letter-spacing:2px;">RECOMENDADO: Magnesio Glicinato · Doctor's Best · Thorne</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <span class="card-tag">Para Articulaciones</span>
+            <h3 class="card-title">COLÁGENO + VIT C</h3>
+            <p class="card-text">Esencial para atletas de fuerza con más de 2 años de entrenamiento. Apoya la salud de tendones, ligamentos y cartílagos bajo carga constante.</p>
+            <p style="margin-top:12px; font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; color:var(--text3); letter-spacing:2px;">RECOMENDADO: Vital Proteins · Great Lakes Collagen</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <span class="card-tag">Para Vasos</span>
+            <h3 class="card-title">CITRULINA</h3>
+            <p class="card-text">Precursor del óxido nítrico. Mejora la congestión ("pump"), reduce la fatiga muscular y mejora la resistencia. Más efectivo que la arginina sola.</p>
+            <p style="margin-top:12px; font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; color:var(--text3); letter-spacing:2px;">DOSIS: 6–8g de L-Citrulina pura 30–45 min antes</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <span class="card-tag">Para Sueño</span>
+            <h3 class="card-title">ASHWAGANDHA</h3>
+            <p class="card-text">Adaptógeno con evidencia real. Reduce cortisol, mejora la calidad del sueño, y estudios recientes muestran aumentos modestos pero reales en masa muscular y fuerza.</p>
+            <p style="margin-top:12px; font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; color:var(--text3); letter-spacing:2px;">DOSIS: 300–600mg/día de extracto KSM-66</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote-section fade-in">
+    <p class="quote-text">"Los suplementos son el 5%. <em>El trabajo es el 95%.</em> No confundas los dos."</p>
+    <p class="quote-author">— Mentalidad STRNG</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><span class="logo-text">STRNG</span><p>Sin excusas, sin atajos.</p></div>
+    <div class="footer-col"><h4>Páginas</h4><ul>
+      <li><a href="../index.html">Inicio</a></li>
+      <li><a href="rutinas.html">Rutinas</a></li>
+      <li><a href="alimentacion.html">Alimentación</a></li>
+      <li><a href="suplementacion.html">Suplementación</a></li>
+      <li><a href="implementos.html">Implementos GYM</a></li>
+      <li><a href="IMC.html">Calculadora IMC</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Contacto</h4><ul><li><a href="/cdn-cgi/l/email-protection#d2b1bdbca6b3b1a6bd92a1a6a0bcb5b4bba6fcb1bdbf"><span class="__cf_email__" data-cfemail="781b17160c191b0c17380b0c0a161f1e110c561b1715">[email&#160;protected]</span></a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><!-- AUDIO -->
+<audio id="bgAudio" loop preload="none" style="display:none;">
+  <source src="../assets/sounds/audio_fondo.mp3" type="audio/mpeg">
+</audio>
+
+<button id="audioBtn" title="Activar/desactivar música">🔇</button>
+
+<script src="../js/script.js"></script>

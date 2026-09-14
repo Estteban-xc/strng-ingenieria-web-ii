@@ -1,0 +1,55 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "STRNG API",
+    "version": "1.0.0",
+    "description": "API REST de la plataforma STRNG para catálogo, pedidos, envíos y repartidores."
+  },
+  "servers": [{ "url": "http://localhost:3001/api", "description": "Desarrollo local" }],
+  "tags": [
+    { "name": "Auth", "description": "Autenticación y renovación de sesión" },
+    { "name": "Productos", "description": "Catálogo de suplementos" },
+    { "name": "Paquetes", "description": "Pedidos y rastreo de envíos" },
+    { "name": "Repartidores", "description": "Gestión de la flota" }
+  ],
+  "paths": {
+    "/health": { "get": { "tags": ["Auth"], "summary": "Estado de la API", "responses": { "200": { "description": "API disponible" } } } },
+    "/auth/login": { "post": { "tags": ["Auth"], "summary": "Iniciar sesión", "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LoginRequest" } } } }, "responses": { "200": { "description": "Tokens emitidos", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuthResponse" } } } }, "400": { "$ref": "#/components/responses/BadRequest" }, "401": { "$ref": "#/components/responses/Unauthorized" } } } },
+    "/auth/refresh": { "post": { "tags": ["Auth"], "summary": "Rotar refresh token", "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RefreshRequest" } } } }, "responses": { "200": { "$ref": "#/components/responses/AuthResponse" }, "401": { "$ref": "#/components/responses/Unauthorized" } } } },
+    "/auth/verify": { "get": { "tags": ["Auth"], "security": [{ "bearerAuth": [] }], "summary": "Verificar access token", "responses": { "200": { "description": "Token válido" }, "401": { "$ref": "#/components/responses/Unauthorized" } } } },
+    "/productos": {
+      "get": { "tags": ["Productos"], "summary": "Listar catálogo", "parameters": [{ "$ref": "#/components/parameters/Categoria" }, { "$ref": "#/components/parameters/Disponible" }], "responses": { "200": { "description": "Productos" } } },
+      "post": { "tags": ["Productos"], "security": [{ "bearerAuth": [] }], "summary": "Crear producto", "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ProductoInput" } } } }, "responses": { "201": { "description": "Creado" }, "400": { "$ref": "#/components/responses/BadRequest" }, "401": { "$ref": "#/components/responses/Unauthorized" }, "403": { "$ref": "#/components/responses/Forbidden" } } }
+    },
+    "/productos/{id}": {
+      "get": { "tags": ["Productos"], "summary": "Obtener producto", "parameters": [{ "$ref": "#/components/parameters/Id" }], "responses": { "200": { "description": "Producto" }, "404": { "$ref": "#/components/responses/NotFound" } } },
+      "put": { "tags": ["Productos"], "security": [{ "bearerAuth": [] }], "summary": "Actualizar producto", "parameters": [{ "$ref": "#/components/parameters/Id" }], "requestBody": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ProductoInput" } } } }, "responses": { "200": { "description": "Actualizado" }, "400": { "$ref": "#/components/responses/BadRequest" }, "401": { "$ref": "#/components/responses/Unauthorized" } } },
+      "delete": { "tags": ["Productos"], "security": [{ "bearerAuth": [] }], "summary": "Eliminar producto", "parameters": [{ "$ref": "#/components/parameters/Id" }], "responses": { "200": { "description": "Eliminado" }, "401": { "$ref": "#/components/responses/Unauthorized" }, "404": { "$ref": "#/components/responses/NotFound" } } }
+    },
+    "/paquetes": {
+      "get": { "tags": ["Paquetes"], "security": [{ "bearerAuth": [] }], "summary": "Listar paquetes", "parameters": [{ "$ref": "#/components/parameters/EstadoPaquete" }, { "$ref": "#/components/parameters/Page" }, { "$ref": "#/components/parameters/Limit" }], "responses": { "200": { "description": "Paquetes" }, "401": { "$ref": "#/components/responses/Unauthorized" } } },
+      "post": { "tags": ["Paquetes"], "summary": "Crear pedido público", "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PaqueteInput" } } } }, "responses": { "201": { "description": "Pedido creado" }, "400": { "$ref": "#/components/responses/BadRequest" }, "409": { "description": "Stock insuficiente" } } }
+    },
+    "/paquetes/estadisticas": { "get": { "tags": ["Paquetes"], "security": [{ "bearerAuth": [] }], "summary": "Estadísticas de paquetes", "responses": { "200": { "description": "Estadísticas" }, "401": { "$ref": "#/components/responses/Unauthorized" } } } },
+    "/paquetes/{guia}": { "get": { "tags": ["Paquetes"], "summary": "Rastrear por guía", "parameters": [{ "name": "guia", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Paquete" }, "404": { "$ref": "#/components/responses/NotFound" } } } },
+    "/repartidores": {
+      "get": { "tags": ["Repartidores"], "security": [{ "bearerAuth": [] }], "summary": "Listar repartidores", "responses": { "200": { "description": "Repartidores" }, "401": { "$ref": "#/components/responses/Unauthorized" } } },
+      "post": { "tags": ["Repartidores"], "security": [{ "bearerAuth": [] }], "summary": "Crear repartidor", "requestBody": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RepartidorInput" } } } }, "responses": { "201": { "description": "Creado" }, "400": { "$ref": "#/components/responses/BadRequest" } } }
+    },
+    "/repartidores/{id}": { "put": { "tags": ["Repartidores"], "security": [{ "bearerAuth": [] }], "summary": "Actualizar repartidor", "parameters": [{ "$ref": "#/components/parameters/Id" }], "requestBody": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RepartidorInput" } } } }, "responses": { "200": { "description": "Actualizado" } } }, "delete": { "tags": ["Repartidores"], "security": [{ "bearerAuth": [] }], "summary": "Desactivar repartidor", "parameters": [{ "$ref": "#/components/parameters/Id" }], "responses": { "200": { "description": "Desactivado" } } } }
+  },
+  "components": {
+    "securitySchemes": { "bearerAuth": { "type": "http", "scheme": "bearer", "bearerFormat": "JWT", "description": "Access token JWT de corta duración. Los scopes se entregan en la respuesta de login y se validan en el backend." }, "oauth2": { "type": "oauth2", "flows": { "password": { "tokenUrl": "/auth/login", "refreshUrl": "/auth/refresh", "scopes": { "productos:read": "Consultar catálogo", "productos:write": "Gestionar productos", "paquetes:read": "Consultar pedidos", "paquetes:write": "Gestionar pedidos", "repartidores:read": "Consultar repartidores", "repartidores:write": "Gestionar repartidores" } } } } },
+    "parameters": { "Id": { "name": "id", "in": "path", "required": true, "schema": { "type": "string", "pattern": "^[a-fA-F0-9]{24}$" } }, "Categoria": { "name": "categoria", "in": "query", "schema": { "type": "string", "enum": ["proteina", "fuerza", "energia", "salud", "recuperacion"] } }, "Disponible": { "name": "disponible", "in": "query", "schema": { "type": "boolean" } }, "EstadoPaquete": { "name": "estado", "in": "query", "schema": { "type": "string", "enum": ["Procesando", "Empacado", "En tránsito", "En ruta", "Entregado"] } }, "Page": { "name": "page", "in": "query", "schema": { "type": "integer", "minimum": 1, "default": 1 } }, "Limit": { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 20 } } },
+    "responses": { "BadRequest": { "description": "Solicitud inválida" }, "Unauthorized": { "description": "Autenticación requerida" }, "Forbidden": { "description": "Permisos insuficientes" }, "NotFound": { "description": "Recurso no encontrado" }, "AuthResponse": { "description": "Tokens de sesión", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuthResponse" } } } } },
+    "schemas": {
+      "LoginRequest": { "type": "object", "required": ["username", "password"], "properties": { "username": { "type": "string" }, "password": { "type": "string", "format": "password" } } },
+      "RefreshRequest": { "type": "object", "required": ["refreshToken"], "properties": { "refreshToken": { "type": "string" } } },
+      "AuthResponse": { "type": "object", "properties": { "ok": { "type": "boolean" }, "accessToken": { "type": "string" }, "refreshToken": { "type": "string" }, "expiresIn": { "type": "integer" }, "user": { "$ref": "#/components/schemas/User" } } },
+      "User": { "type": "object", "properties": { "id": { "type": "string" }, "username": { "type": "string" }, "role": { "type": "string" }, "scopes": { "type": "array", "items": { "type": "string" } } } },
+      "ProductoInput": { "type": "object", "required": ["nombre", "marca", "precio", "categoria"], "properties": { "nombre": { "type": "string", "maxLength": 120 }, "marca": { "type": "string", "maxLength": 120 }, "descripcion": { "type": "string", "maxLength": 1000 }, "precio": { "type": "number", "minimum": 0 }, "categoria": { "type": "string", "enum": ["proteina", "fuerza", "energia", "salud", "recuperacion"] }, "stock": { "type": "integer", "minimum": 0 }, "disponible": { "type": "boolean" }, "destacado": { "type": "boolean" }, "sabores": { "type": "array", "items": { "type": "string" } } } },
+      "PaqueteInput": { "type": "object", "required": ["remitente", "destinatario"], "properties": { "remitente": { "type": "object" }, "destinatario": { "type": "object", "required": ["nombre", "telefono", "direccion"] }, "productos": { "type": "array", "items": { "type": "object" } }, "total": { "type": "number", "minimum": 0 } } },
+      "RepartidorInput": { "type": "object", "required": ["nombre", "telefono"], "properties": { "nombre": { "type": "string" }, "telefono": { "type": "string" }, "estado": { "type": "string", "enum": ["Disponible", "En ruta", "Descanso"] }, "vehiculo": { "type": "object" } } }
+    }
+  }
+}

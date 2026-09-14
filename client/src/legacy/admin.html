@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>STRNG | Panel de Administración</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../assets/images/simbolo.png" type="image/png">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red: #d63031;
+      --red-bright: #ff4757;
+      --red-dim: rgba(214,48,49,0.12);
+      --red-glow: rgba(214,48,49,0.3);
+      --bg: #0d0d0d;
+      --bg2: #111;
+      --bg3: #171717;
+      --card-bg: #141414;
+      --border: rgba(255,255,255,0.07);
+      --border2: rgba(255,255,255,0.14);
+      --text: #f0f0f0;
+      --text2: #aaa;
+      --text3: #555;
+      --green: #28a745;
+      --orange: #ffa500;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Barlow Condensed', sans-serif; min-height: 100vh; }
+
+    /* ── LAYOUT ── */
+    .admin-layout { display: flex; min-height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 220px;
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 100;
+    }
+    .sidebar-logo {
+      padding: 24px 20px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-logo .brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 4px;
+      color: var(--red-bright);
+    }
+    .sidebar-logo .sub {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      color: var(--text3);
+      text-transform: uppercase;
+    }
+    .sidebar-nav { flex: 1; padding: 16px 0; }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: 0.2s;
+      border-left: 3px solid transparent;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text2);
+    }
+    .nav-item:hover { background: var(--bg3); color: var(--text); }
+    .nav-item.active { border-left-color: var(--red); background: var(--red-dim); color: var(--text); }
+    .nav-icon { font-size: 1.2rem; min-width: 24px; }
+    .sidebar-footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+    }
+    .sidebar-footer a {
+      display: flex; align-items: center; gap: 8px;
+      color: var(--text3); font-size: 0.78rem; letter-spacing: 2px;
+      text-decoration: none; transition: color 0.2s;
+    }
+    .sidebar-footer a:hover { color: var(--text); }
+
+    /* ── MAIN ── */
+    .main-content {
+      margin-left: 220px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .topbar-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 4px;
+    }
+    .topbar-actions { display: flex; gap: 10px; align-items: center; }
+    .status-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green);
+      animation: pulse-g 1.5s infinite;
+    }
+    @keyframes pulse-g { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+    .status-label {
+      font-size: 0.72rem; letter-spacing: 2px; color: var(--green);
+    }
+
+    /* ── CONTENT AREA ── */
+    .content-area { padding: 28px; flex: 1; }
+
+    /* ── STATS GRID ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px 22px;
+      transition: 0.2s;
+    }
+    .stat-card:hover { border-color: var(--border2); }
+    .stat-label {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 8px;
+    }
+    .stat-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem;
+      letter-spacing: 2px;
+      line-height: 1;
+    }
+    .stat-value.red { color: var(--red-bright); }
+    .stat-value.orange { color: var(--orange); }
+    .stat-value.green { color: var(--green); }
+    .stat-value.white { color: var(--text); }
+
+    /* ── PANEL SECTIONS ── */
+    .section { display: none; }
+    .section.active { display: block; }
+
+    /* ── TABLA PAQUETES ── */
+    .table-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px; flex-wrap: wrap; gap: 12px;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 4px;
+    }
+    .btn { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; transition: 0.2s; }
+    .btn-primary { background: var(--red); color: #fff; }
+    .btn-primary:hover { background: var(--red-bright); }
+    .btn-secondary { background: var(--bg3); border: 1px solid var(--border2); color: var(--text2); }
+    .btn-secondary:hover { color: var(--text); border-color: var(--text2); }
+    .btn-sm { padding: 6px 14px; font-size: 0.75rem; }
+    .btn-danger { background: rgba(220,53,69,0.2); border: 1px solid rgba(220,53,69,0.4); color: #dc3545; }
+    .btn-danger:hover { background: rgba(220,53,69,0.3); }
+
+    .filter-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-btn { padding: 6px 16px; border: 1px solid var(--border2); background: var(--bg3); color: var(--text3); font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 3px; transition: 0.2s; }
+    .filter-btn.active, .filter-btn:hover { border-color: var(--red); color: var(--text); background: var(--red-dim); }
+
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      background: var(--bg3);
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text3);
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    td { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 0.9rem; color: var(--text2); vertical-align: middle; }
+    tr:hover td { background: var(--bg2); }
+    .guia-cell { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 2px; color: var(--red-bright); }
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 3px;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .badge-bodega { background: rgba(108,117,125,0.2); color: #adb5bd; border: 1px solid rgba(108,117,125,0.3); }
+    .badge-ruta   { background: rgba(255,165,0,0.15);  color: var(--orange); border: 1px solid rgba(255,165,0,0.3); }
+    .badge-entregado { background: rgba(40,167,69,0.15); color: var(--green); border: 1px solid rgba(40,167,69,0.3); }
+    .badge-incidencia { background: rgba(220,53,69,0.15); color: #dc3545; border: 1px solid rgba(220,53,69,0.3); }
+    .badge-empacado { background: rgba(0,123,255,0.15); color: #007bff; border: 1px solid rgba(0,123,255,0.3); }
+
+    .td-actions { display: flex; gap: 6px; }
+
+    /* ── FORMULARIO NUEVO PAQUETE ── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 22px 24px;
+      margin-bottom: 20px;
+    }
+    .form-section-title {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .form-row.full { grid-template-columns: 1fr; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    label { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text3); }
+    input, select, textarea {
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 4px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: 0.2s;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--red); box-shadow: 0 0 0 3px var(--red-dim); }
+    select option { background: var(--bg3); }
+    textarea { resize: vertical; min-height: 80px; }
+
+    /* ── MAPA FLOTA ── */
+    #mapaFlota { height: 420px; border-radius: 6px; border: 1px solid var(--border); }
+    .repartidores-list { margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+    .rep-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px 18px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .rep-avatar {
+      width: 44px; height: 44px;
+      background: var(--red-dim);
+      border: 2px solid var(--red);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+    }
+    .rep-nombre { font-size: 1rem; letter-spacing: 1px; color: var(--text); }
+    .rep-estado { font-size: 0.7rem; letter-spacing: 2px; color: var(--text3); margin-top: 2px; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 1000;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--bg2);
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      padding: 28px 32px;
+      width: 90%;
+      max-width: 480px;
+    }
+    .modal-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 4px;
+      margin-bottom: 20px;
+    }
+    .modal-actions { display: flex; gap: 10px; margin-top: 20px; justify-content: flex-end; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      padding: 14px 20px;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: 0.3s;
+      z-index: 9999;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { border-left: 3px solid var(--green); }
+    .toast.error { border-left: 3px solid var(--red); }
+
+    /* ── LOADING ── */
+    .loading { text-align: center; padding: 40px; color: var(--text3); font-size: 0.85rem; letter-spacing: 3px; }
+    .spinner-sm {
+      display: inline-block; width: 24px; height: 24px;
+      border: 2px solid var(--border2);
+      border-top-color: var(--red);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── LEAFLET DARK ── */
+    .leaflet-tile-pane { filter: brightness(0.8) saturate(0.6); }
+
+    @media (max-width: 768px) {
+      .sidebar { width: 60px; }
+      .sidebar .sidebar-logo .brand, .sidebar .nav-item span, .sidebar .sub { display: none; }
+      .nav-item { justify-content: center; padding: 14px; }
+      .main-content { margin-left: 60px; }
+      .form-grid, .form-row { grid-template-columns: 1fr; }
+    }
+  
+    /* ── LOGIN OVERLAY ── */
+    #loginOverlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #0d0d0d;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+    }
+    #loginOverlay.hidden { display: none; }
+    .login-box {
+      background: #141414;
+      border: 1px solid rgba(214,48,49,0.35);
+      border-radius: 8px;
+      padding: 48px 44px 40px;
+      width: 100%; max-width: 400px;
+      box-shadow: 0 0 60px rgba(214,48,49,0.12);
+    }
+    .login-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem;
+      letter-spacing: 10px;
+      color: #f0f0f0;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+    .login-sub {
+      text-align: center;
+      font-size: 0.78rem;
+      letter-spacing: 3px;
+      color: #555;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+    }
+    .login-field { margin-bottom: 18px; }
+    .login-field label {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      color: #777;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .login-field input {
+      width: 100%;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #f0f0f0;
+      padding: 12px 14px;
+      border-radius: 4px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      outline: none;
+      transition: 0.2s;
+    }
+    .login-field input:focus { border-color: #d63031; box-shadow: 0 0 0 3px rgba(214,48,49,0.15); }
+    .login-error {
+      color: #ff4757;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      text-align: center;
+      margin-bottom: 14px;
+      min-height: 20px;
+    }
+    .btn-login {
+      width: 100%;
+      background: #d63031;
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 4px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.05rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 4px;
+    }
+    .btn-login:hover { background: #ff4757; }
+    .login-lock { text-align: center; margin-bottom: 24px; font-size: 2.2rem; }
+</style>
+</head>
+<body>
+
+<!-- ── LOGIN OVERLAY ───────────────────────────── -->
+<div id="loginOverlay">
+  <div class="login-box">
+    <div class="login-lock">🔐</div>
+    <div class="login-brand">STRNG</div>
+    <div class="login-sub">Panel de Administración</div>
+    <div class="login-field">
+      <label>Usuario</label>
+      <input type="text" id="loginUser" placeholder="usuario" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <div class="login-field">
+      <label>Contraseña</label>
+      <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <div class="login-error" id="loginError"></div>
+    <button class="btn-login" onclick="doLogin()">INGRESAR</button>
+  </div>
+</div>
+
+<div class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="brand">STRNG</div>
+      <div class="sub">Admin Panel</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" onclick="showSection('dashboard')">
+        <span class="nav-icon">📊</span><span>Dashboard</span>
+      </div>
+      <div class="nav-item" onclick="showSection('paquetes')">
+        <span class="nav-icon">📦</span><span>Paquetes</span>
+      </div>
+      <div class="nav-item" onclick="showSection('productos')">
+        <span class="nav-icon">🛒</span><span>Productos</span>
+      </div>
+      <div class="nav-item" onclick="showSection('nuevo')">
+        <span class="nav-icon">➕</span><span>Nuevo Envío</span>
+      </div>
+      <div class="nav-item" onclick="showSection('flota')">
+        <span class="nav-icon">🗺️</span><span>Flota</span>
+      </div>
+      <div class="nav-item" onclick="showSection('repartidores')">
+        <span class="nav-icon">🛵</span><span>Repartidores</span>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="rastreo.html">🔍 <span>Ver rastreo público</span></a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+    <div class="topbar">
+      <div class="topbar-title" id="topbarTitle">DASHBOARD</div>
+      <div class="topbar-actions">
+        <div class="status-dot"></div>
+        <span class="status-label">API CONECTADA</span>
+      </div>
+    </div>
+
+    <div class="content-area">
+
+      <!-- ══ DASHBOARD ══ -->
+      <div class="section active" id="sec-dashboard">
+        <div class="stats-grid" id="statsGrid">
+          <div class="stat-card"><div class="stat-label">Total paquetes</div><div class="stat-value white" id="st-total">—</div></div>
+          <div class="stat-card"><div class="stat-label">Pendientes</div><div class="stat-value white" id="st-bodega">—</div></div>
+          <div class="stat-card"><div class="stat-label">En ruta</div><div class="stat-value orange" id="st-ruta">—</div></div>
+          <div class="stat-card"><div class="stat-label">Entregados</div><div class="stat-value green" id="st-entregados">—</div></div>
+          <div class="stat-card"><div class="stat-label">En tránsito</div><div class="stat-value red" id="st-incidencias">—</div></div>
+        </div>
+
+        <div class="table-header" style="margin-top:8px">
+          <div class="section-title">ÚLTIMOS ENVÍOS</div>
+          <button class="btn btn-primary" onclick="showSection('nuevo')">+ NUEVO ENVÍO</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Guía</th><th>Destinatario</th><th>Estado</th><th>Repartidor</th><th>Fecha</th><th>Acciones</th>
+            </tr></thead>
+            <tbody id="dashboardTbody"><tr><td colspan="6" class="loading"><span class="spinner-sm"></span>CARGANDO...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══ PAQUETES ══ -->
+      <div class="section" id="sec-paquetes">
+        <div class="table-header">
+          <div class="section-title">GESTIÓN DE PAQUETES</div>
+          <div class="filter-row">
+            <button class="filter-btn active" onclick="filtrarPaquetes('todos', this)">TODOS</button>
+            <button class="filter-btn" onclick="filtrarPaquetes('Procesando', this)">PROCESANDO</button>
+            <button class="filter-btn" onclick="filtrarPaquetes('Empacado', this)">EMPACADOS</button>
+            <button class="filter-btn" onclick="filtrarPaquetes('En tránsito', this)">EN TRÁNSITO</button>
+            <button class="filter-btn" onclick="filtrarPaquetes('En ruta', this)">EN RUTA</button>
+            <button class="filter-btn" onclick="filtrarPaquetes('Entregado', this)">ENTREGADOS</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Guía</th><th>Destinatario</th><th>Dirección</th><th>Estado</th><th>Total</th><th>Repartidor</th><th>Acciones</th>
+            </tr></thead>
+            <tbody id="paquetesTbody"><tr><td colspan="7" class="loading"><span class="spinner-sm"></span>CARGANDO...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══ PRODUCTOS ══ -->
+      <div class="section" id="sec-productos">
+        <div class="table-header">
+          <div class="section-title">GESTIÓN DE PRODUCTOS</div>
+          <button class="btn btn-primary" onclick="abrirModalProducto()">+ NUEVO PRODUCTO</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Stock</th><th>Disponible</th><th>Acciones</th></tr></thead>
+            <tbody id="productosTbody"><tr><td colspan="6" class="loading"><span class="spinner-sm"></span>CARGANDO...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══ NUEVO ENVÍO ══ -->
+      <div class="section" id="sec-nuevo">
+        <div class="table-header">
+          <div class="section-title">REGISTRAR NUEVO ENVÍO</div>
+        </div>
+        <form id="formNuevo" onsubmit="submitNuevoPaquete(event)">
+          <div class="form-section">
+            <div class="form-section-title">// Datos del Destinatario</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nombre completo *</label>
+                <input type="text" name="dest_nombre" required placeholder="Ej: Carlos Martínez">
+              </div>
+              <div class="form-group">
+                <label>Teléfono *</label>
+                <input type="tel" name="dest_telefono" required placeholder="3001234567">
+              </div>
+            </div>
+            <div class="form-row full">
+              <div class="form-group">
+                <label>Dirección de entrega *</label>
+                <input type="text" name="dest_direccion" required placeholder="Calle 100 #15-20, Apto 301">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Ciudad</label>
+                <input type="text" name="dest_ciudad" value="Bogotá" placeholder="Bogotá">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <div class="form-section-title">// Datos del Paquete</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Descripción del contenido</label>
+                <input type="text" name="descripcion" placeholder="Suplementos deportivos">
+              </div>
+              <div class="form-group">
+                <label>Valor declarado ($COP)</label>
+                <input type="number" name="total" placeholder="189000" min="0">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Peso (kg)</label>
+                <input type="number" name="peso" placeholder="1.5" step="0.1" min="0">
+              </div>
+              <div class="form-group">
+                <label>Asignar Repartidor</label>
+                <select name="repartidor" id="selectRepartidor">
+                  <option value="">Sin asignar</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:12px;justify-content:flex-end">
+            <button type="button" class="btn btn-secondary" onclick="showSection('paquetes')">CANCELAR</button>
+            <button type="submit" class="btn btn-primary" id="btnSubmit">📦 REGISTRAR ENVÍO</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ══ FLOTA (MAPA) ══ -->
+      <div class="section" id="sec-flota">
+        <div class="table-header">
+          <div class="section-title">FLOTA EN TIEMPO REAL</div>
+          <button class="btn btn-secondary" onclick="cargarFlota()">🔄 ACTUALIZAR</button>
+        </div>
+        <div id="mapaFlota"></div>
+        <div class="repartidores-list" id="flota-cards"></div>
+      </div>
+
+      <!-- ══ REPARTIDORES ══ -->
+      <div class="section" id="sec-repartidores">
+        <div class="table-header">
+          <div class="section-title">GESTIÓN DE REPARTIDORES</div>
+          <button class="btn btn-primary" onclick="abrirModalRepartidor()">+ NUEVO REPARTIDOR</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Nombre</th><th>Teléfono</th><th>Vehículo</th><th>Estado</th><th>Última ubicación</th><th>Acciones</th>
+            </tr></thead>
+            <tbody id="repTbody"><tr><td colspan="6" class="loading"><span class="spinner-sm"></span>CARGANDO...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- content-area -->
+  </main>
+</div>
+
+<!-- ══ MODAL PRODUCTO ══ -->
+<div class="modal-overlay" id="modalProducto">
+  <div class="modal">
+    <div class="modal-title" id="modalProductoTitulo">NUEVO PRODUCTO</div>
+    <div class="form-group" style="margin-bottom:14px"><label>Nombre *</label><input id="prodNombre" required></div>
+    <div class="form-group" style="margin-bottom:14px"><label>Marca *</label><input id="prodMarca" required></div>
+    <div class="form-group" style="margin-bottom:14px"><label>Descripción</label><textarea id="prodDescripcion" rows="2"></textarea></div>
+    <div class="form-row">
+      <div class="form-group"><label>Precio *</label><input id="prodPrecio" type="number" min="0" required></div>
+      <div class="form-group"><label>Stock</label><input id="prodStock" type="number" min="0" value="0"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Categoría *</label><select id="prodCategoria"><option value="proteina">Proteína</option><option value="fuerza">Fuerza</option><option value="energia">Energía</option><option value="salud">Salud</option><option value="recuperacion">Recuperación</option></select></div>
+      <div class="form-group"><label>Imagen</label><input id="prodImagen" placeholder="/assets/images/whey.jpg"></div>
+    </div>
+    <div class="form-group" style="margin-top:14px"><label>Sabores (separados por coma)</label><input id="prodSabores" placeholder="Chocolate, Vainilla"></div>
+    <div style="display:flex;gap:18px;margin-top:14px"><label><input id="prodDisponible" type="checkbox" checked> Disponible</label><label><input id="prodDestacado" type="checkbox"> Destacado</label></div>
+    <div class="modal-actions"><button class="btn btn-secondary" onclick="cerrarModalProducto()">CANCELAR</button><button class="btn btn-primary" onclick="guardarProducto()">GUARDAR</button></div>
+  </div>
+</div>
+
+<!-- ══ MODAL ACTUALIZAR ESTADO ══ -->
+<div class="modal-overlay" id="modalEstado">
+  <div class="modal">
+    <div class="modal-title">ACTUALIZAR ESTADO</div>
+    <input type="hidden" id="modalPaqueteId">
+    <div class="form-group" style="margin-bottom:14px">
+      <label>Guía</label>
+      <input type="text" id="modalGuia" readonly style="opacity:0.6">
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label>Nuevo estado *</label>
+      <select id="modalNuevoEstado">
+        <option value="Procesando">📦 Procesando</option>
+        <option value="Empacado">📋 Empacado</option>
+        <option value="En tránsito">🚚 En tránsito</option>
+        <option value="En ruta">🛵 En ruta</option>
+        <option value="Entregado">✅ Entregado</option>
+      </select>
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label>Repartidor asignado</label>
+      <select id="modalRepartidor">
+        <option value="">Sin asignar</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Descripción</label>
+      <textarea id="modalDesc" rows="2" placeholder="Observaciones..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="cerrarModal()">CANCELAR</button>
+      <button class="btn btn-primary" onclick="guardarEstado()">GUARDAR</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL NUEVO REPARTIDOR ══ -->
+<div class="modal-overlay" id="modalRep">
+  <div class="modal">
+    <div class="modal-title">NUEVO REPARTIDOR</div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label>Nombre *</label>
+      <input type="text" id="repNombre" placeholder="Andrés Ruiz">
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label>Teléfono *</label>
+      <input type="tel" id="repTel" placeholder="3118420415">
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label>Vehículo</label>
+      <select id="repVehiculo">
+        <option value="moto">🏍️ Moto</option>
+        <option value="bicicleta">🚲 Bicicleta</option>
+        <option value="carro">🚗 Carro</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Placa</label>
+      <input type="text" id="repPlaca" placeholder="ABC-123">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="cerrarModalRep()">CANCELAR</button>
+      <button class="btn btn-primary" onclick="guardarRepartidor()">GUARDAR</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL VER REPARTIDOR ══ -->
+<div class="modal-overlay" id="modalVerRep">
+  <div class="modal">
+    <div class="modal-title">INFORMACIÓN DEL REPARTIDOR</div>
+    <div id="detalleRep" style="line-height:1.8;color:var(--text2);letter-spacing:1px"></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="cerrarModalVerRep()">CERRAR</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const API = '/api';
+let accessToken = sessionStorage.getItem('strng_access_token') || '';
+let refreshToken = sessionStorage.getItem('strng_refresh_token') || '';
+let mapaFlota = null;
+let todosLosPaquetes = [];
+let repartidoresList = [];
+let repartidorEditandoId = null;
+
+// ── NAVEGACIÓN ──────────────────────────────────
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(`sec-${id}`).classList.add('active');
+
+  const navMap = { dashboard: 0, paquetes: 1, productos: 2, nuevo: 3, flota: 4, repartidores: 5 };
+  const navItems = document.querySelectorAll('.nav-item');
+  if (navMap[id] !== undefined) navItems[navMap[id]].classList.add('active');
+
+  const titles = { dashboard: 'DASHBOARD', paquetes: 'PAQUETES', productos: 'PRODUCTOS', nuevo: 'NUEVO ENVÍO', flota: 'FLOTA', repartidores: 'REPARTIDORES' };
+  document.getElementById('topbarTitle').textContent = titles[id] || id.toUpperCase();
+
+  if (id === 'dashboard') cargarDashboard();
+  if (id === 'paquetes') cargarPaquetes();
+  if (id === 'productos') cargarProductos();
+  if (id === 'flota') { setTimeout(cargarFlota, 100); }
+  if (id === 'repartidores') cargarRepartidores();
+  if (id === 'nuevo') cargarSelectRepartidores();
+}
+
+// ── TOAST ───────────────────────────────────────
+function showToast(msg, tipo = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${tipo} show`;
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── HELPERS ─────────────────────────────────────
+function badgeEstado(estado) {
+  const map = {
+    'Procesando': 'badge-bodega', 'Empacado': 'badge-empacado', 'En tránsito': 'badge-ruta',
+    'En ruta': 'badge-ruta', 'Entregado': 'badge-entregado'
+  };
+  const emoji = { 'Procesando':'📦','Empacado':'📋','En tránsito':'🚚','En ruta':'🛵','Entregado':'✅' };
+  return `<span class="badge ${map[estado]||'badge-bodega'}">${emoji[estado]||''} ${estado}</span>`;
+}
+
+function fmt(n) { return '$' + Number(n||0).toLocaleString('es-CO'); }
+
+function fmtFecha(d) {
+  return new Date(d).toLocaleDateString('es-CO', { day:'2-digit', month:'short', year:'numeric' });
+}
+
+// ── FETCH HELPERS ────────────────────────────────
+async function apiFetch(url, opts = {}) {
+  try {
+    const headers = { 'Content-Type': 'application/json', ...(opts.headers || {}) };
+    if (accessToken) headers.Authorization = `Bearer ${accessToken}`;
+    let res = await fetch(API + url, { ...opts, headers });
+    if (res.status === 401 && refreshToken && !url.startsWith('/auth/')) {
+      const renewed = await fetch(API + '/auth/refresh', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ refreshToken }) });
+      const data = await renewed.json();
+      if (data.ok) {
+        accessToken = data.accessToken; refreshToken = data.refreshToken;
+        sessionStorage.setItem('strng_access_token', accessToken); sessionStorage.setItem('strng_refresh_token', refreshToken);
+        headers.Authorization = `Bearer ${accessToken}`;
+        res = await fetch(API + url, { ...opts, headers });
+      }
+    }
+    return await res.json();
+  } catch (err) {
+    return { ok: false, error: 'Sin conexión al servidor. Ejecuta: cd server && node index.js' };
+  }
+}
+
+// ── DASHBOARD ────────────────────────────────────
+async function cargarDashboard() {
+  const [statsData, paqData] = await Promise.all([
+    apiFetch('/paquetes/estadisticas'),
+    apiFetch('/paquetes?limit=8')
+  ]);
+
+  if (statsData.ok) {
+    const s = statsData.stats;
+    document.getElementById('st-total').textContent = s.total;
+    document.getElementById('st-bodega').textContent = s.procesando + s.empacado;
+    document.getElementById('st-ruta').textContent = s.enRuta;
+    document.getElementById('st-entregados').textContent = s.entregados;
+    document.getElementById('st-incidencias').textContent = s.enTransito;
+  }
+
+  const tbody = document.getElementById('dashboardTbody');
+  const paqMezclados = mezclarConLocal(paqData.paquetes || []).slice(0, 8);
+  if (!paqData.ok && !paqMezclados.length) {
+    tbody.innerHTML = `<tr><td colspan="6" style="color:var(--red);padding:20px;letter-spacing:1px">⚠️ ${paqData.error || 'Sin conexión'}</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = paqMezclados.map(p => `
+    <tr>
+      <td class="guia-cell">${p.guia}</td>
+      <td>${p.destinatario?.nombre || '—'}</td>
+      <td>${badgeEstado(p.estado)}</td>
+      <td>${p.repartidor?.nombre || '<span style="color:var(--text3)">Sin asignar</span>'}</td>
+      <td>${fmtFecha(p.createdAt)}</td>
+      <td><div class="td-actions">
+        <button class="btn btn-secondary btn-sm" onclick="abrirModalEstado('${p._id}','${p.guia}','${p.estado}','${p.repartidor?._id||''}')">✏️ Estado</button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+// ── PAQUETES ─────────────────────────────────────
+// Lee pedidos de localStorage (guardados por tienda.html) y los normaliza
+function pedidosLocalStorage() {
+  try {
+    const raw = JSON.parse(localStorage.getItem('strng_pedidos') || '{}');
+    return Object.values(raw).map(p => ({
+      _id: null,
+      guia: p.guia,
+      estado: p.estado || 'En bodega',
+      createdAt: p.fecha || new Date().toISOString(),
+      destinatario: {
+        nombre: p.nombre || p.destinatario?.nombre || '—',
+        direccion: p.direccion || p.destinatario?.direccion || '—',
+        telefono: p.telefono || p.destinatario?.telefono || ''
+      },
+      total: p.total || 0,
+      productos: p.productos || [],
+      repartidor: p.repartidor || null,
+      _local: true
+    }));
+  } catch (e) { return []; }
+}
+
+// Mezcla paquetes de API con los de localStorage (API prevalece si misma guía)
+function mezclarConLocal(apiPaquetes) {
+  const locales = pedidosLocalStorage();
+  const guiasApi = new Set((apiPaquetes || []).map(p => p.guia));
+  const soloLocales = locales.filter(p => !guiasApi.has(p.guia));
+  return [...(apiPaquetes || []), ...soloLocales];
+}
+
+async function cargarPaquetes(estado = 'todos') {
+  const url = estado === 'todos' ? '/paquetes?limit=50' : `/paquetes?estado=${encodeURIComponent(estado)}&limit=50`;
+  const data = await apiFetch(url);
+
+  const mezclados = mezclarConLocal(data.paquetes || []);
+  const filtrados = estado === 'todos' ? mezclados : mezclados.filter(p => p.estado === estado);
+  todosLosPaquetes = filtrados;
+
+  const tbody = document.getElementById('paquetesTbody');
+  if (!data.ok && !filtrados.length) {
+    tbody.innerHTML = `<tr><td colspan="7" style="color:var(--red);padding:20px">⚠️ ${data.error || 'Sin conexión al servidor'}</td></tr>`;
+    return;
+  }
+  if (!filtrados.length) {
+    tbody.innerHTML = '<tr><td colspan="7" class="loading">Sin paquetes con ese filtro</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtrados.map(p => `
+    <tr>
+      <td class="guia-cell">${p.guia}</td>
+      <td>${p.destinatario?.nombre || '—'}</td>
+      <td>${p.destinatario?.direccion || '—'}</td>
+      <td>${badgeEstado(p.estado)}</td>
+      <td>${fmt(p.total)}</td>
+      <td>${p.repartidor?.nombre || '<span style="color:var(--text3)">Sin asignar</span>'}</td>
+      <td><div class="td-actions">
+        <button class="btn btn-secondary btn-sm" onclick="abrirModalEstado('${p._id}','${p.guia}','${p.estado}','${p.repartidor?._id||''}')">✏️ Estado</button>
+        <a href="rastreo.html?guia=${p.guia}" target="_blank" class="btn btn-secondary btn-sm">🔍</a>
+        <button class="btn btn-danger btn-sm" onclick="eliminarPaquete('${p._id}','${p.guia}')">🗑️</button>
+      </div></td>
+    </tr>
+  `).join('').replace(/(<td class="guia-cell">)(STRNG-[^<]+)(<\/td>)/g, (m, pre, guia, post) => {
+    const p = filtrados.find(x => x.guia === guia.trim());
+    const badge = p?._local ? ' <span style="font-size:0.62rem;background:rgba(255,165,0,0.18);color:#ffa500;border:1px solid rgba(255,165,0,0.4);padding:1px 5px;border-radius:3px;letter-spacing:1px;vertical-align:middle;">TIENDA</span>' : '';
+    return `${pre}${guia}${badge}${post}`;
+  });
+}
+
+async function eliminarPaquete(id, guia) {
+  if (!confirm(`¿Eliminar pedido ${guia}? Esta acción no se puede deshacer.`)) return;
+
+  if (!id || id === 'null') {
+    // Pedido local
+    try {
+      const pedidos = JSON.parse(localStorage.getItem('strng_pedidos') || '{}');
+      delete pedidos[guia];
+      localStorage.setItem('strng_pedidos', JSON.stringify(pedidos));
+      showToast('🗑️ Pedido local eliminado');
+      cargarDashboard();
+      cargarPaquetes();
+    } catch (e) {
+      showToast('❌ Error eliminando pedido local', 'error');
+    }
+    return;
+  }
+
+  const data = await apiFetch(`/paquetes/${id}`, { method: 'DELETE' });
+  if (data.ok) {
+    showToast('🗑️ Pedido eliminado');
+    cargarDashboard();
+    cargarPaquetes();
+  } else {
+    showToast('❌ ' + (data.error || 'Error al eliminar'), 'error');
+  }
+}
+
+function filtrarPaquetes(estado, btn) {
+  document.querySelectorAll('#sec-paquetes .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  cargarPaquetes(estado);
+}
+
+let productosList = [];
+let productoEditandoId = null;
+function dinero(n) { return '$' + Number(n || 0).toLocaleString('es-CO'); }
+async function cargarProductos() {
+  const data = await apiFetch('/productos');
+  const tbody = document.getElementById('productosTbody');
+  productosList = data.productos || [];
+  if (!data.ok) { tbody.innerHTML = `<tr><td colspan="6" style="color:var(--red);padding:20px">⚠️ ${data.error}</td></tr>`; return; }
+  if (!productosList.length) { tbody.innerHTML = '<tr><td colspan="6" class="loading">Sin productos registrados</td></tr>'; return; }
+  tbody.innerHTML = productosList.map(p => `<tr><td>${p.nombre}</td><td>${p.categoria}</td><td>${dinero(p.precio)}</td><td>${p.stock ?? 0}</td><td>${p.disponible ? '✅ Sí' : '❌ No'}</td><td><div class="td-actions"><button class="btn btn-primary btn-sm" onclick="editarProducto('${p._id}')">✏️ Editar</button><button class="btn btn-danger btn-sm" onclick="eliminarProducto('${p._id}')">🗑️ Eliminar</button></div></td></tr>`).join('');
+}
+function abrirModalProducto(producto = null) {
+  productoEditandoId = producto?._id || null;
+  document.getElementById('modalProductoTitulo').textContent = producto ? 'EDITAR PRODUCTO' : 'NUEVO PRODUCTO';
+  document.getElementById('prodNombre').value = producto?.nombre || '';
+  document.getElementById('prodMarca').value = producto?.marca || '';
+  document.getElementById('prodDescripcion').value = producto?.descripcion || '';
+  document.getElementById('prodPrecio').value = producto?.precio ?? '';
+  document.getElementById('prodStock').value = producto?.stock ?? 0;
+  document.getElementById('prodCategoria').value = producto?.categoria || 'proteina';
+  document.getElementById('prodImagen').value = producto?.imagen || '';
+  document.getElementById('prodSabores').value = (producto?.sabores || []).join(', ');
+  document.getElementById('prodDisponible').checked = producto?.disponible ?? true;
+  document.getElementById('prodDestacado').checked = producto?.destacado ?? false;
+  document.getElementById('modalProducto').classList.add('open');
+}
+function editarProducto(id) { abrirModalProducto(productosList.find(p => p._id === id)); }
+function cerrarModalProducto() { document.getElementById('modalProducto').classList.remove('open'); }
+async function guardarProducto() {
+  const nombre = document.getElementById('prodNombre').value.trim();
+  const marca = document.getElementById('prodMarca').value.trim();
+  const precio = Number(document.getElementById('prodPrecio').value);
+  if (!nombre || !marca || !Number.isFinite(precio) || precio < 0) { showToast('⚠️ Nombre, marca y precio son obligatorios', 'error'); return; }
+  const payload = { nombre, marca, precio, descripcion: document.getElementById('prodDescripcion').value.trim(), stock: Math.max(0, Number(document.getElementById('prodStock').value) || 0), categoria: document.getElementById('prodCategoria').value, imagen: document.getElementById('prodImagen').value.trim(), sabores: document.getElementById('prodSabores').value.split(',').map(s => s.trim()).filter(Boolean), disponible: document.getElementById('prodDisponible').checked, destacado: document.getElementById('prodDestacado').checked };
+  const data = await apiFetch(productoEditandoId ? `/productos/${productoEditandoId}` : '/productos', { method: productoEditandoId ? 'PUT' : 'POST', body: JSON.stringify(payload) });
+  if (!data.ok) { showToast('❌ ' + data.error, 'error'); return; }
+  showToast('✅ Producto ' + (productoEditandoId ? 'actualizado' : 'creado')); cerrarModalProducto(); productoEditandoId = null; cargarProductos();
+}
+async function eliminarProducto(id) {
+  const producto = productosList.find(p => p._id === id);
+  if (!producto || !confirm(`¿Eliminar ${producto.nombre}?`)) return;
+  const data = await apiFetch(`/productos/${id}`, { method: 'DELETE' });
+  if (data.ok) { showToast('✅ Producto eliminado'); cargarProductos(); } else showToast('❌ ' + data.error, 'error');
+}
+
+// ── NUEVO PAQUETE ─────────────────────────────────
+async function cargarSelectRepartidores() {
+  const data = await apiFetch('/repartidores');
+  const sel = document.getElementById('selectRepartidor');
+  sel.innerHTML = '<option value="">Sin asignar</option>';
+  if (data.ok) {
+    data.repartidores.forEach(r => {
+      sel.innerHTML += `<option value="${r._id}">${r.nombre} — ${r.estado}</option>`;
+    });
+  }
+}
+
+async function submitNuevoPaquete(e) {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const btn = document.getElementById('btnSubmit');
+  btn.disabled = true;
+  btn.textContent = 'GUARDANDO...';
+
+  const payload = {
+    remitente: { nombre: 'STRNG Store', telefono: '3118420415', direccion: 'Bodega STRNG, Bogotá' },
+    destinatario: {
+      nombre: fd.get('dest_nombre'),
+      telefono: fd.get('dest_telefono'),
+      direccion: fd.get('dest_direccion'),
+      ciudad: fd.get('dest_ciudad') || 'Bogotá'
+    },
+    descripcion: fd.get('descripcion'),
+    total: Number(fd.get('total')) || 0,
+    dimensiones: { peso: Number(fd.get('peso')) || 0 },
+    repartidor: fd.get('repartidor') || null
+  };
+
+  const data = await apiFetch('/paquetes', { method: 'POST', body: JSON.stringify(payload) });
+
+  btn.disabled = false;
+  btn.textContent = '📦 REGISTRAR ENVÍO';
+
+  if (data.ok) {
+    showToast(`✅ Paquete creado: ${data.paquete.guia}`);
+    e.target.reset();
+    setTimeout(() => showSection('paquetes'), 1200);
+  } else {
+    showToast('❌ Error: ' + data.error, 'error');
+  }
+}
+
+// ── MODAL ESTADO ──────────────────────────────────
+async function abrirModalEstado(id, guia, estadoActual, repActual) {
+  document.getElementById('modalPaqueteId').value = id;
+  document.getElementById('modalGuia').value = guia;
+  document.getElementById('modalNuevoEstado').value = estadoActual;
+  document.getElementById('modalDesc').value = '';
+
+  // Cargar repartidores en modal
+  const data = await apiFetch('/repartidores');
+  const sel = document.getElementById('modalRepartidor');
+  sel.innerHTML = '<option value="">Sin asignar</option>';
+  if (data.ok) {
+    data.repartidores.forEach(r => {
+      sel.innerHTML += `<option value="${r._id}" ${r._id === repActual ? 'selected' : ''}>${r.nombre} — ${r.estado}</option>`;
+    });
+  }
+
+  document.getElementById('modalEstado').classList.add('open');
+}
+
+function cerrarModal() {
+  document.getElementById('modalEstado').classList.remove('open');
+}
+
+async function guardarEstado() {
+  const id = document.getElementById('modalPaqueteId').value;
+  const guia = document.getElementById('modalGuia').value;
+  const estado = document.getElementById('modalNuevoEstado').value;
+  const repartidor = document.getElementById('modalRepartidor').value;
+  const descripcion = document.getElementById('modalDesc').value;
+
+  // Pedido local (viene de localStorage, no tiene _id de MongoDB)
+  if (!id || id === 'null') {
+    try {
+      const pedidos = JSON.parse(localStorage.getItem('strng_pedidos') || '{}');
+      if (pedidos[guia]) {
+        pedidos[guia].estado = estado;
+        if (!pedidos[guia].historialEstados) pedidos[guia].historialEstados = [];
+        pedidos[guia].historialEstados.push({
+          estado,
+          descripcion: descripcion || `Estado actualizado a ${estado}`,
+          hora: new Date().toISOString()
+        });
+        localStorage.setItem('strng_pedidos', JSON.stringify(pedidos));
+        showToast('✅ Estado actualizado (pedido local)');
+        cerrarModal();
+        cargarDashboard();
+        cargarPaquetes();
+      } else {
+        showToast('❌ Pedido no encontrado en localStorage', 'error');
+      }
+    } catch (e) {
+      showToast('❌ Error actualizando pedido local', 'error');
+    }
+    return;
+  }
+
+  // Pedido de MongoDB — flujo normal
+  const data = await apiFetch(`/paquetes/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify({ estado, repartidor: repartidor || null, descripcion })
+  });
+
+  if (data.ok) {
+    showToast('✅ Estado actualizado correctamente');
+    cerrarModal();
+    cargarDashboard();
+    cargarPaquetes();
+  } else {
+    showToast('❌ ' + data.error, 'error');
+  }
+}
+
+// ── FLOTA / MAPA ──────────────────────────────────
+async function cargarFlota() {
+  const data = await apiFetch('/repartidores/ubicaciones');
+  if (!data.ok) return;
+
+  const reps = data.repartidores;
+
+  // Init mapa si no existe
+  if (!mapaFlota) {
+    mapaFlota = L.map('mapaFlota').setView([4.7110, -74.0721], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap', maxZoom: 19
+    }).addTo(mapaFlota);
+  } else {
+    mapaFlota.eachLayer(l => { if (l instanceof L.Marker) mapaFlota.removeLayer(l); });
+  }
+
+  reps.forEach(r => {
+    const { lat, lng } = r.ubicacion;
+    const icono = L.divIcon({
+      className: '',
+      html: `<div style="font-size:1.8rem;filter:drop-shadow(0 2px 6px rgba(214,48,49,0.7))">${r.vehiculo?.tipo === 'bicicleta' ? '🚲' : '🛵'}</div>`,
+      iconSize: [36, 36],
+      iconAnchor: [18, 36]
+    });
+    L.marker([lat, lng], { icon: icono })
+      .addTo(mapaFlota)
+      .bindPopup(`<b>${r.nombre}</b><br>${r.estado}<br>${r.ubicacion.direccion}`);
+  });
+
+  // Render tarjetas
+  const cards = document.getElementById('flota-cards');
+  cards.innerHTML = reps.map(r => `
+    <div class="rep-card">
+      <div class="rep-avatar">${r.vehiculo?.tipo === 'bicicleta' ? '🚲' : '🛵'}</div>
+      <div>
+        <div class="rep-nombre">${r.nombre}</div>
+        <div class="rep-estado">${r.estado} — ${r.ubicacion.direccion}</div>
+      </div>
+    </div>
+  `).join('') || '<p style="color:var(--text3);letter-spacing:2px;font-size:0.8rem">Sin repartidores activos</p>';
+}
+
+// ── REPARTIDORES ──────────────────────────────────
+async function cargarRepartidores() {
+  const data = await apiFetch('/repartidores');
+  repartidoresList = data.repartidores || [];
+  const tbody = document.getElementById('repTbody');
+
+  if (!data.ok) {
+    tbody.innerHTML = `<tr><td colspan="6" style="color:var(--red);padding:20px">⚠️ ${data.error}</td></tr>`;
+    return;
+  }
+  if (!data.repartidores.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="loading">Sin repartidores registrados</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = data.repartidores.map(r => `
+    <tr>
+      <td>${r.nombre}</td>
+      <td>${r.telefono}</td>
+      <td>${r.vehiculo?.tipo || '—'} ${r.vehiculo?.placa ? `(${r.vehiculo.placa})` : ''}</td>
+      <td>${badgeEstado(r.estado)}</td>
+      <td>${r.ubicacion?.direccion || '—'}</td>
+      <td><div class="td-actions">
+        <select class="btn btn-secondary btn-sm" onchange="cambiarEstadoRep('${r._id}', this.value)">
+          <option ${r.estado==='Disponible'?'selected':''}>Disponible</option>
+          <option ${r.estado==='En ruta'?'selected':''}>En ruta</option>
+          <option ${r.estado==='Descanso'?'selected':''}>Descanso</option>
+        </select>
+        <button class="btn btn-secondary btn-sm" onclick="verRepartidor('${r._id}')">👁️ Ver</button>
+        <button class="btn btn-primary btn-sm" onclick="editarRepartidor('${r._id}')">✏️ Editar</button>
+        <button class="btn btn-danger btn-sm" onclick="eliminarRepartidor('${r._id}')">🗑️ Eliminar</button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+async function cambiarEstadoRep(id, estado) {
+  const data = await apiFetch(`/repartidores/${id}`, { method: 'PUT', body: JSON.stringify({ estado }) });
+  if (data.ok) showToast('✅ Estado repartidor actualizado');
+  else showToast('❌ ' + data.error, 'error');
+}
+
+function abrirModalRepartidor() {
+  repartidorEditandoId = null;
+  document.querySelector('#modalRep .modal-title').textContent = 'NUEVO REPARTIDOR';
+  document.getElementById('repNombre').value = '';
+  document.getElementById('repTel').value = '';
+  document.getElementById('repPlaca').value = '';
+  document.getElementById('modalRep').classList.add('open');
+}
+function cerrarModalRep() { document.getElementById('modalRep').classList.remove('open'); }
+
+async function guardarRepartidor() {
+  const nombre = document.getElementById('repNombre').value.trim();
+  const telefono = document.getElementById('repTel').value.trim();
+  const tipo = document.getElementById('repVehiculo').value;
+  const placa = document.getElementById('repPlaca').value.trim();
+
+  if (!nombre || !telefono) { showToast('⚠️ Nombre y teléfono son requeridos', 'error'); return; }
+
+  const data = await apiFetch(repartidorEditandoId ? `/repartidores/${repartidorEditandoId}` : '/repartidores', {
+    method: repartidorEditandoId ? 'PUT' : 'POST',
+    body: JSON.stringify({ nombre, telefono, vehiculo: { tipo, placa } })
+  });
+
+  if (data.ok) {
+    showToast('✅ Repartidor ' + (repartidorEditandoId ? 'actualizado: ' : 'creado: ') + nombre);
+    cerrarModalRep();
+    repartidorEditandoId = null;
+    cargarRepartidores();
+  } else {
+    showToast('❌ ' + data.error, 'error');
+  }
+}
+
+function verRepartidor(id) {
+  const r = repartidoresList.find(item => item._id === id);
+  if (!r) return;
+  document.getElementById('detalleRep').innerHTML = `
+    <p><strong style="color:var(--text)">Nombre:</strong> ${r.nombre || '—'}</p>
+    <p><strong style="color:var(--text)">Teléfono:</strong> ${r.telefono || '—'}</p>
+    <p><strong style="color:var(--text)">Estado:</strong> ${r.estado || '—'}</p>
+    <p><strong style="color:var(--text)">Vehículo:</strong> ${r.vehiculo?.tipo || '—'}${r.vehiculo?.placa ? ` (${r.vehiculo.placa})` : ''}</p>
+    <p><strong style="color:var(--text)">Dirección:</strong> ${r.ubicacion?.direccion || 'Sin ubicación'}</p>
+    <p><strong style="color:var(--text)">Coordenadas:</strong> ${r.ubicacion?.lat ?? '—'}, ${r.ubicacion?.lng ?? '—'}</p>`;
+  document.getElementById('modalVerRep').classList.add('open');
+}
+function cerrarModalVerRep() { document.getElementById('modalVerRep').classList.remove('open'); }
+
+function editarRepartidor(id) {
+  const r = repartidoresList.find(item => item._id === id);
+  if (!r) return;
+  repartidorEditandoId = id;
+  document.querySelector('#modalRep .modal-title').textContent = 'EDITAR REPARTIDOR';
+  document.getElementById('repNombre').value = r.nombre || '';
+  document.getElementById('repTel').value = r.telefono || '';
+  document.getElementById('repVehiculo').value = r.vehiculo?.tipo || 'moto';
+  document.getElementById('repPlaca').value = r.vehiculo?.placa || '';
+  document.getElementById('modalRep').classList.add('open');
+}
+
+async function eliminarRepartidor(id) {
+  const r = repartidoresList.find(item => item._id === id);
+  if (!r || !confirm(`¿Eliminar a ${r.nombre}?`)) return;
+  const data = await apiFetch(`/repartidores/${id}`, { method: 'DELETE' });
+  if (data.ok) { showToast('✅ Repartidor eliminado'); cargarRepartidores(); }
+  else showToast('❌ ' + data.error, 'error');
+}
+
+// ── CERRAR MODALES AL CLICK FUERA ────────────────
+document.getElementById('modalEstado').addEventListener('click', function(e) {
+  if (e.target === this) cerrarModal();
+});
+document.getElementById('modalRep').addEventListener('click', function(e) {
+  if (e.target === this) cerrarModalRep();
+});
+document.getElementById('modalVerRep').addEventListener('click', function(e) {
+  if (e.target === this) cerrarModalVerRep();
+});
+
+
+// ── AUTENTICACIÓN ADMIN ───────────────────────────
+async function doLogin() {
+  const user = document.getElementById('loginUser').value.trim();
+  const pass = document.getElementById('loginPass').value;
+  const errEl = document.getElementById('loginError');
+  const data = await apiFetch('/auth/login', { method: 'POST', body: JSON.stringify({ username: user, password: pass }) });
+  if (data.ok) {
+    accessToken = data.accessToken; refreshToken = data.refreshToken;
+    sessionStorage.setItem('strng_access_token', accessToken);
+    sessionStorage.setItem('strng_refresh_token', refreshToken);
+    document.getElementById('loginOverlay').classList.add('hidden');
+    errEl.textContent = '';
+    cargarDashboard();
+  } else {
+    errEl.textContent = '✕ ' + (data.error || 'Usuario o contraseña incorrectos');
+    document.getElementById('loginPass').value = '';
+    document.getElementById('loginPass').focus();
+    // Shake animation
+    const box = document.querySelector('.login-box');
+    box.style.animation = 'none';
+    box.offsetHeight; // reflow
+    box.style.animation = 'shake 0.4s ease';
+  }
+}
+
+// Check auth on load — block init until logged in
+ (async function checkAuth() {
+  if (!accessToken) {
+    setTimeout(() => {
+      document.getElementById('loginUser').focus();
+    }, 100);
+  } else {
+    const data = await apiFetch('/auth/verify');
+    if (data.ok) { document.getElementById('loginOverlay').classList.add('hidden'); cargarDashboard(); }
+    else { accessToken = ''; refreshToken = ''; sessionStorage.removeItem('strng_access_token'); sessionStorage.removeItem('strng_refresh_token'); }
+  }
+})();
+
+// Shake keyframe
+const shakeStyle = document.createElement('style');
+shakeStyle.textContent = '@keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }';
+document.head.appendChild(shakeStyle);
+
+// ── INIT ─────────────────────────────────────────
+// cargarDashboard() is called by doLogin() or checkAuth() above
+
+// Auto-refresh cada 30s en dashboard
+setInterval(() => {
+  if (document.getElementById('sec-dashboard').classList.contains('active')) cargarDashboard();
+  if (document.getElementById('sec-flota').classList.contains('active')) cargarFlota();
+}, 30000);
+</script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>STRNG | Implementos de GYM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../assets/images/simbolo.png" type="image/png">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="logo-wrap">
+      <img src="../assets/images/logo.png" alt="STRNG" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">STRNG</span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="rutinas.html">Rutinas</a></li>
+        <li><a href="alimentacion.html">Alimentación</a></li>
+        <li><a href="suplementacion.html">Suplementación</a></li>
+        <li><a href="implementos.html" class="active">Implementos</a></li>
+        <li><a href="IMC.html">Calc. IMC</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="tienda.html">🛒 Tienda</a></li>
+        <li><a href="rastreo.html">📦 Rastrear</a></li>
+        <li><a href="admin.html" style="color:var(--red-bright)">⚙️ Admin</a></li>
+      </ul>
+    </nav>
+    <div class="header-controls">
+      <button id="themeBtn">☀ CLARO</button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>EL EQUIPO CORRECTO MARCA LA DIFERENCIA</span><span class="dot">•</span>
+    <span>INVIERTE EN TU ENTRENAMIENTO</span><span class="dot">•</span>
+    <span>EL EQUIPO CORRECTO MARCA LA DIFERENCIA</span><span class="dot">•</span>
+    <span>INVIERTE EN TU ENTRENAMIENTO</span><span class="dot">•</span>
+  </div>
+</div>
+
+<div class="page-wrapper">
+
+  <div style="background: linear-gradient(180deg, rgba(214,48,49,0.08) 0%, transparent 100%); padding: 60px 0 20px; text-align:center;">
+    <div class="container">
+      <span class="section-label">// Equipamiento para el Gym</span>
+      <h1 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(3rem,8vw,5.5rem); letter-spacing:8px; color:var(--text); line-height:1;">
+        IMPLEMENTOS GYM
+      </h1>
+      <p style="color:var(--text2); max-width:560px; margin:14px auto 0; font-size:1rem; line-height:1.7;">
+        El equipo adecuado no solo mejora tu rendimiento — protege tu cuerpo y te lleva más lejos.
+      </p>
+    </div>
+  </div>
+
+  <!-- ACCESORIOS ESENCIALES -->
+  <div class="section-block">
+    <div class="container">
+      <span class="section-label">// 01 — Accesorios de Entrenamiento</span>
+      <h2 class="section-title">LO QUE DEBES TENER</h2>
+
+      <div class="implements-grid fade-in">
+
+        <div class="impl-card">
+          <img src="../assets/images/cinto.png"
+               alt="Cinturón de levantamiento" class="impl-img"
+               >
+          <div class="impl-body">
+            <div class="impl-name">CINTURÓN DE LEVANTAMIENTO</div>
+            <p class="impl-desc">Esencial para sentadillas y peso muerto con cargas máximas. Aumenta la presión intraabdominal y protege la columna lumbar. No es para cargas ligeras — úsalo solo en series pesadas.</p>
+            <div class="impl-price">$40 – $150 USD</div>
+          </div>
+        </div>
+
+        <div class="impl-card">
+          <img src="../assets/images/straps.jpg"
+               alt="Straps / Correas" class="impl-img"
+               >
+          <div class="impl-body">
+            <div class="impl-name">STRAPS / CORREAS</div>
+            <p class="impl-desc">Permiten manejar más carga cuando el agarre es el limitante. Ideales en jalones, remos y peso muerto cuando se trabaja con volumen alto. Los guantes son más un tema de preferencia personal.</p>
+            <div class="impl-price">$10 – $35 USD</div>
+          </div>
+        </div>
+
+        <div class="impl-card">
+          <img src="../assets/images/rodilleras.jpg"
+               alt="Rodilleras de gym" class="impl-img"
+               >
+          <div class="impl-body">
+            <div class="impl-name">RODILLERAS / KNEE SLEEVES</div>
+            <p class="impl-desc">Comprimen y calientan la articulación de la rodilla durante sentadillas pesadas. No son solo para lesionados — cualquier lifter que maneje cargas significativas se beneficia de ellas.</p>
+            <div class="impl-price">$25 – $100 USD</div>
+          </div>
+        </div>
+
+        <div class="impl-card">
+          <img src="../assets/images/muñequeras.jpg"
+               alt="Muñequeras" class="impl-img"
+               >
+          <div class="impl-body">
+            <div class="impl-name">MUÑEQUERAS (WRIST WRAPS)</div>
+            <p class="impl-desc">Estabilizan la muñeca en press de banca, press militar y otros movimientos de empuje. Previenen hiperextensión y reducen el riesgo de tendinitis con cargas altas.</p>
+            <div class="impl-price">$15 – $50 USD</div>
+          </div>
+        </div>
+
+        <div class="impl-card">
+          <img src="../assets/images/cinta.jpg"
+               alt="Cinta atlética" class="impl-img"
+               >
+          <div class="impl-body">
+            <div class="impl-name">CINTA ATLÉTICA (TAPE)</div>
+            <p class="impl-desc">Para proteger dedos, pulgares y palmas en jaladas pesadas. Imprescindible para powerlifters y practicantes de calistenia. Marca la diferencia en la comodidad del agarre.</p>
+            <div class="impl-price">$3 – $12 USD</div>
+          </div>
+        </div>
+
+        <div class="impl-card">
+          <img src="../assets/images/lastre.png"
+               alt="Cinturón de lastre" class="impl-img"
+               >
+          <div class="impl-body">
+            <div class="impl-name">CINTURÓN DE LASTRE</div>
+            <p class="impl-desc">Permite añadir carga externa a dominadas, fondos y otros ejercicios de peso corporal. Esencial cuando puedes hacer más de 10 reps limpias y necesitas seguir progresando.</p>
+            <div class="impl-price">$30 – $90 USD</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ROPA TÉCNICA -->
+  <div class="section-block" style="background:var(--bg2);">
+    <div class="container">
+      <span class="section-label">// 02 — Ropa Técnica</span>
+      <h2 class="section-title">VESTIMENTA DE RENDIMIENTO</h2>
+      <p class="section-sub">La ropa de entrenamiento no es vanidad. La tela correcta regula temperatura, reduce fricción y mejora el movimiento.</p>
+
+      <div class="grid-2 fade-in" style="gap:24px;">
+
+        <div class="card">
+          <img src="../assets/images/tirantes.png"
+               alt="Ropa técnica gym" class="card-img"
+               >
+          <div class="card-body">
+            <span class="card-tag">Indumentaria</span>
+            <h3 class="card-title">CAMISETAS / TIRANTES</h3>
+            <p class="card-text">Busca telas de poliéster o mezcla con nylon que drenen el sudor. Corte ajustado (compression) para sentadilla y peso muerto, o holgado para mayor libertad de movimiento. Evita el algodón puro en entrenamientos intensos.</p>
+            <p style="margin-top:10px; font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; color:var(--text3); letter-spacing:2px;">MARCAS: Nike Dri-FIT · Under Armour · Gymshark · Alphalete</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="../assets/images/zapas.png"
+               alt="Calzado gym" class="card-img"
+               >
+          <div class="card-body">
+            <span class="card-tag">Calzado</span>
+            <h3 class="card-title">CALZADO DE ENTRENAMIENTO</h3>
+            <p class="card-text">El calzado más importante que comprarás. Para levantamiento olímpico: zapato de halterofilia con talón elevado. Para sentadilla baja y peso muerto: suela plana y rígida (Converse, Vans, Lifting Shoes). Evita zapatillas de running con mucha amortiguación para levantar.</p>
+            <p style="margin-top:10px; font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; color:var(--text3); letter-spacing:2px;">RECOMENDADO: Nike Romaleos · Adidas Adipower · Converse Chuck Taylor</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="../assets/images/short.png"
+               alt="Shorts gym" class="card-img"
+               >
+          <div class="card-body">
+            <span class="card-tag">Indumentaria</span>
+            <h3 class="card-title">SHORTS / LEGGINS</h3>
+            <p class="card-text">Para sentadillas profundas y ejercicios de pierna: leggins o shorts de 4-way stretch que no restrinjan el movimiento. Para powerlifting con camisa: considera deadlift socks (medias largas) para evitar raspaduras en la espinilla.</p>
+            <p style="margin-top:10px; font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; color:var(--text3); letter-spacing:2px;">MARCAS: Lululemon · Gymshark · 2XU Compression</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="../assets/images/agua.png"
+               alt="Accesorios gym" class="card-img"
+               >
+          <div class="card-body">
+            <span class="card-tag">Accesorios</span>
+            <h3 class="card-title">OTROS ACCESORIOS</h3>
+            <p class="card-text">Botella de agua de al menos 1L (preferiblemente acero inox para mantener temperatura). Toalla de microfibra. Auriculares inalámbricos resistentes al sudor. Diario de entrenamiento o app para tracking de cargas.</p>
+            <p style="margin-top:10px; font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; color:var(--text3); letter-spacing:2px;">TRACKING: Strong App · Hevy · Notion + plantilla propia</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- EQUIPAMIENTO PARA CASA -->
+  <div class="section-block">
+    <div class="container">
+      <span class="section-label">// 03 — Home Gym</span>
+      <h2 class="section-title">EQUIPA TU GYM EN CASA</h2>
+      <p class="section-sub">Para quienes prefieren entrenar en casa. Esta es la guía de prioridad de compra.</p>
+
+      <div class="info-box fade-in" style="margin-bottom:30px;">
+        <h4>📋 Orden de Prioridad de Compra</h4>
+        <ul>
+          <li><strong style="color:var(--text);">1° —</strong> Mancuernas ajustables (20–50kg) · Base para cualquier entrenamiento</li>
+          <li><strong style="color:var(--text);">2° —</strong> Barra olímpica + discos de caucho (120–200kg en placas) · Para compound lifts</li>
+          <li><strong style="color:var(--text);">3° —</strong> Rack de sentadilla (power rack) · Seguridad para entrenar solo</li>
+          <li><strong style="color:var(--text);">4° —</strong> Banco ajustable (plano + inclinado) · Amplía ejercicios de press</li>
+          <li><strong style="color:var(--text);">5° —</strong> Barra de dominadas · Para trabajo de espalda y calistenia</li>
+          <li><strong style="color:var(--text);">6° —</strong> Cuerda para saltar + bandas de resistencia · Para cardio y movilidad</li>
+        </ul>
+      </div>
+
+      <div class="grid-3 fade-in" style="gap:20px;">
+        <div class="card">
+          <div class="card-body">
+            <span class="card-tag">Esencial</span>
+            <h3 class="card-title">MANCUERNAS</h3>
+            <p class="card-text">Las mancuernas ajustables (tipo PowerBlock o Bowflex SelectTech) son la opción más eficiente en espacio y costo para home gym. Rango de 5–50kg cubre el 90% de los ejercicios.</p>
+            <p style="margin-top:10px; color:var(--red); font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:2px;">$150 – $400 USD</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <span class="card-tag">Para Compuestos</span>
+            <h3 class="card-title">BARRA + DISCOS</h3>
+            <p class="card-text">Una barra olímpica de 20kg + 100–150kg en discos de caucho te da todo lo que necesitas para sentadilla, peso muerto y press de banca. Invierte en calidad — una barra barata se dobla.</p>
+            <p style="margin-top:10px; color:var(--red); font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:2px;">$300 – $800 USD</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <span class="card-tag">Seguridad</span>
+            <h3 class="card-title">POWER RACK</h3>
+            <p class="card-text">El armazón que hace el gym real. Permite sentadilla y press de banca sin spotter. Busca uno que soporte mínimo 300kg, con j-hooks ajustables y barras de seguridad.</p>
+            <p style="margin-top:10px; color:var(--red); font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:2px;">$400 – $1,500 USD</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote-section fade-in">
+    <p class="quote-text">"El hierro no te juzga. <em>Solo te devuelve lo que le das.</em>"</p>
+    <p class="quote-author">— Mentalidad STRNG</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-text">STRNG</span>
+      <p>Sin excusas, sin atajos.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Páginas</h4>
+      <ul>
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="rutinas.html">Rutinas</a></li>
+        <li><a href="alimentacion.html">Alimentación</a></li>
+        <li><a href="suplementacion.html">Suplementación</a></li>
+        <li><a href="implementos.html">Implementos GYM</a></li>
+        <li><a href="IMC.html">Calculadora IMC</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="mailto:contacto@strngfit.com">contacto@strngfit.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 STRNG.</p>
+    <p>Hecho para los que no se rinden.</p>
+  </div>
+</footer>
+
+<!-- AUDIO -->
+<audio id="bgAudio" loop preload="none" style="display:none;">
+  <source src="../assets/sounds/audio_fondo.mp3" type="audio/mpeg">
+</audio>
+
+<button id="audioBtn" title="Activar/desactivar música">🔇</button>
+
+<script src="../js/script.js"></script>
+</body>
+</html>

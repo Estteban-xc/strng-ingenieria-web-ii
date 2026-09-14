@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>STRNG | Calculadora IMC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../assets/images/simbolo.png" type="image/png">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="logo-wrap">
+      <img src="../assets/images/logo.png" alt="STRNG" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">STRNG</span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="rutinas.html">Rutinas</a></li>
+        <li><a href="alimentacion.html">Alimentación</a></li>
+        <li><a href="suplementacion.html">Suplementación</a></li>
+        <li><a href="implementos.html">Implementos</a></li>
+        <li><a href="IMC.html" class="active">Calc. IMC</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="tienda.html">🛒 Tienda</a></li>
+        <li><a href="rastreo.html">📦 Rastrear</a></li>
+        <li><a href="admin.html" style="color:var(--red-bright)">⚙️ Admin</a></li>
+      </ul>
+    </nav>
+    <div class="header-controls">
+      <button id="themeBtn">☀ CLARO</button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>LOS NÚMEROS NO MIENTEN</span><span class="dot">•</span>
+    <span>CONOCE TU PUNTO DE PARTIDA</span><span class="dot">•</span>
+    <span>MIDE — ACTÚA — EVOLUCIONA</span><span class="dot">•</span>
+    <span>LOS NÚMEROS NO MIENTEN</span><span class="dot">•</span>
+    <span>CONOCE TU PUNTO DE PARTIDA</span><span class="dot">•</span>
+    <span>MIDE — ACTÚA — EVOLUCIONA</span><span class="dot">•</span>
+  </div>
+</div>
+
+<div class="page-wrapper">
+
+  <div style="background: linear-gradient(180deg, rgba(214,48,49,0.08) 0%, transparent 100%); padding: 60px 0 20px; text-align:center;">
+    <div class="container">
+      <span class="section-label">// Herramienta de Diagnóstico</span>
+      <h1 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(3rem,8vw,6rem); letter-spacing:8px; color:var(--text); line-height:1;">
+        CALCULADORA IMC
+      </h1>
+      <p style="color:var(--text2); max-width:520px; margin:14px auto 0; font-size:1rem; line-height:1.7;">
+        El IMC es tu punto de partida. No el veredicto final — el hierro y el tiempo harán el resto.
+      </p>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="container">
+      <div class="imc-layout fade-in">
+
+        <!-- FORM -->
+        <div class="imc-form-section">
+          <span class="section-label">// Ingresa tus datos</span>
+          <h2 style="font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:4px; color:var(--text); margin-bottom:28px; line-height:1;">
+            CALCULA TU IMC
+          </h2>
+
+          <form id="imcForm">
+            <div class="form-group">
+              <label class="form-label" for="peso">Peso (kilogramos)</label>
+              <input type="number" id="peso" class="form-input" step="0.1" min="1" max="500" placeholder="Ej: 75.5" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="altura">Altura (metros)</label>
+              <input type="number" id="altura" class="form-input" step="0.01" min="0.5" max="3" placeholder="Ej: 1.75" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%; margin-top:10px; padding:16px; font-size:0.9rem;">
+              CALCULAR IMC
+            </button>
+          </form>
+
+          <!-- RESULT -->
+          <div class="imc-result" id="imcResult" style="margin-top:28px;">
+            <p style="color:var(--text3); font-family:'Barlow Condensed',sans-serif; font-size:0.8rem; letter-spacing:3px; text-transform:uppercase;">
+              Ingresa tus datos para ver el resultado
+            </p>
+          </div>
+
+          <!-- RESULT ELEMENTS (hidden initially) -->
+          <div id="imcResultContent" style="display:none; margin-top:20px;">
+            <div class="imc-result">
+              <span class="imc-num" id="imcNum">—</span>
+              <span class="imc-status" id="imcStatus">—</span>
+            </div>
+            <div class="info-box" style="margin-top:16px;">
+              <h4>💬 Interpretación</h4>
+              <p id="imcMsg" style="margin-top:6px; font-size:0.9rem;"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABLE -->
+        <div>
+          <div class="imc-table-section" style="margin-bottom:20px;">
+            <span class="section-label">// Tabla de referencia</span>
+            <h3 style="font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:3px; color:var(--text); margin-bottom:20px; line-height:1;">CLASIFICACIÓN OMS</h3>
+            <div class="imc-row low">
+              <span class="imc-row-label">BAJO PESO</span>
+              <span class="imc-row-range">IMC &lt; 18.5</span>
+            </div>
+            <div class="imc-row normal">
+              <span class="imc-row-label">NORMAL</span>
+              <span class="imc-row-range">18.5 – 24.9</span>
+            </div>
+            <div class="imc-row over">
+              <span class="imc-row-label">SOBREPESO</span>
+              <span class="imc-row-range">25 – 29.9</span>
+            </div>
+            <div class="imc-row obese">
+              <span class="imc-row-label">OBESIDAD</span>
+              <span class="imc-row-range">≥ 30</span>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <h4>⚠️ Limitaciones del IMC</h4>
+            <p>El IMC no distingue entre grasa y músculo. Un atleta pesado puede aparecer en "sobrepeso" siendo completamente saludable. Para una evaluación real, considera también:</p>
+            <ul style="margin-top:10px;">
+              <li>Porcentaje de grasa corporal (DEXA, plicometría)</li>
+              <li>Circunferencia de cintura (&lt;80cm mujer / &lt;94cm hombre)</li>
+              <li>Relación cintura-cadera</li>
+              <li>Análisis de bioimpedancia</li>
+            </ul>
+          </div>
+
+          <div class="info-box" style="margin-top:16px;">
+            <h4>📊 IMC Ideal por Categoría</h4>
+            <ul>
+              <li><strong style="color:#3498db;">Atletas de resistencia:</strong> 18–22 (bajo peso = más eficiencia)</li>
+              <li><strong style="color:#2ecc71;">Población general saludable:</strong> 20–24</li>
+              <li><strong style="color:#f39c12;">Atletas de fuerza:</strong> 24–28 (músculo extra)</li>
+              <li><strong style="color:var(--red);">Powerlifters / culturistas:</strong> 27–35+ (masa muscular alta)</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote-section fade-in">
+    <p class="quote-text">"No se trata de cómo te ves hoy. Se trata de <em>quién decides ser.</em>"</p>
+    <p class="quote-author">— Mentalidad STRNG</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><span class="logo-text">STRNG</span><p>Sin excusas, sin atajos.</p></div>
+    <div class="footer-col"><h4>Páginas</h4><ul>
+      <li><a href="../index.html">Inicio</a></li>
+      <li><a href="rutinas.html">Rutinas</a></li>
+      <li><a href="alimentacion.html">Alimentación</a></li>
+      <li><a href="suplementacion.html">Suplementación</a></li>
+      <li><a href="implementos.html">Implementos GYM</a></li>
+      <li><a href="IMC.html">Calculadora IMC</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Contacto</h4><ul><li><a href="mailto:contacto@strngfit.com">contacto@strngfit.com</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 STRNG.</p><p>Hecho para los que no se rinden.</p></div>
+</footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('imcForm');
+  if (!form) return;
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const peso   = parseFloat(document.getElementById('peso').value);
+    const altura = parseFloat(document.getElementById('altura').value);
+    if (!peso || !altura || altura <= 0) return;
+
+    const imc = peso / (altura * altura);
+    const numEl  = document.getElementById('imcNum');
+    const statEl = document.getElementById('imcStatus');
+    const msgEl  = document.getElementById('imcMsg');
+    const def    = document.getElementById('imcResult');
+    const res    = document.getElementById('imcResultContent');
+
+    let status, msg, color;
+    if      (imc < 18.5) { status = 'BAJO PESO';  color = '#3498db'; msg = 'Enfócate en ganar masa muscular. Aumenta calorías con proteína de calidad y entrena con cargas progresivas.'; }
+    else if (imc < 25)   { status = 'NORMAL';      color = '#2ecc71'; msg = 'Estás en tu rango saludable. Mantén la disciplina, optimiza tu composición corporal y sigue progresando.'; }
+    else if (imc < 30)   { status = 'SOBREPESO';   color = '#f39c12'; msg = 'El déficit calórico moderado y el entrenamiento de fuerza son tus mejores aliados. Sé paciente y consistente.'; }
+    else                  { status = 'OBESIDAD';    color = '#d63031'; msg = 'Es momento de actuar con decisión. Consulta un profesional de salud y da el primer paso hoy. El cambio empieza con una sola decisión.'; }
+
+    if (numEl)  { numEl.textContent = imc.toFixed(1); numEl.style.color = color; }
+    if (statEl) { statEl.textContent = status; statEl.style.color = color; }
+    if (msgEl)  { msgEl.textContent = msg; }
+    if (def)    def.style.display = 'none';
+    if (res)    res.style.display = 'block';
+
+    document.querySelectorAll('.imc-row').forEach(r => r.classList.remove('active-row'));
+    const map = { low: imc < 18.5, normal: imc >= 18.5 && imc < 25, over: imc >= 25 && imc < 30, obese: imc >= 30 };
+    document.querySelectorAll('.imc-row').forEach(r => {
+      const cl = [...r.classList].find(c => map[c]);
+      if (cl && map[cl]) r.classList.add('active-row');
+    });
+  });
+});
+</script>
+<!-- AUDIO -->
+<audio id="bgAudio" loop preload="none" style="display:none;">
+  <source src="../assets/sounds/audio_fondo.mp3" type="audio/mpeg">
+</audio>
+
+<button id="audioBtn" title="Activar/desactivar música">🔇</button>
+
+<script src="../js/script.js"></script>
+</body>
+</html>

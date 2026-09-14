@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>STRNG | Contacto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../assets/images/simbolo.png" type="image/png">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="logo-wrap">
+      <img src="../assets/images/logo.png" alt="STRNG" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">STRNG</span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="rutinas.html">Rutinas</a></li>
+        <li><a href="alimentacion.html">Alimentación</a></li>
+        <li><a href="suplementacion.html">Suplementación</a></li>
+        <li><a href="implementos.html">Implementos</a></li>
+        <li><a href="IMC.html">Calc. IMC</a></li>
+        <li><a href="contacto.html" class="active">Contacto</a></li>
+        <li><a href="tienda.html">🛒 Tienda</a></li>
+        <li><a href="rastreo.html">📦 Rastrear</a></li>
+        <li><a href="admin.html" style="color:var(--red-bright)">⚙️ Admin</a></li>
+      </ul>
+    </nav>
+    <div class="header-controls">
+      <button id="themeBtn">☀ CLARO</button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>¿LISTO PARA EMPEZAR?</span><span class="dot">•</span>
+    <span>ASESORÍA PERSONALIZADA</span><span class="dot">•</span>
+    <span>DA EL PRIMER PASO</span><span class="dot">•</span>
+    <span>¿LISTO PARA EMPEZAR?</span><span class="dot">•</span>
+    <span>ASESORÍA PERSONALIZADA</span><span class="dot">•</span>
+    <span>DA EL PRIMER PASO</span><span class="dot">•</span>
+  </div>
+</div>
+
+<div class="page-wrapper">
+
+  <!-- HERO -->
+  <div style="background: linear-gradient(180deg, rgba(214,48,49,0.08) 0%, transparent 100%); padding: 60px 0 20px; text-align:center;">
+    <div class="container">
+      <span class="section-label">// Asesoría y Contacto</span>
+      <h1 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(3rem,8vw,6rem); letter-spacing:8px; color:var(--text); line-height:1;">
+        CONTÁCTANOS
+      </h1>
+      <p style="color:var(--text2); max-width:520px; margin:14px auto 0; font-size:1rem; line-height:1.7;">
+        ¿Quieres asesoría personalizada sobre entrenamiento, nutrición o suplementación? Escríbenos y te respondemos.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ SECCIÓN PRINCIPAL ══ -->
+  <div class="section-block">
+    <div class="container">
+
+      <div class="contact-intro fade-in">
+        <img
+          src="../assets/images/contacto.png"
+          alt="Entrenador STRNG"
+          class="contact-float-img"
+          
+        >
+        <p>
+          En <strong style="color:var(--red);">STRNG</strong> creemos que cada persona necesita un punto de partida diferente.
+          No importa si eres principiante absoluto, si llevas años en el gym pero sientes que no avanzas,
+          o si simplemente quieres optimizar tu dieta y suplementación para ir al siguiente nivel.
+        </p>
+        <p style="margin-top: 14px;">
+          Nuestro equipo puede orientarte en: selección de rutinas según tu objetivo, distribución de macronutrientes,
+          elección de suplementos, uso correcto de implementos y mucho más. Rellena el formulario y uno de nuestros
+          asesores te contactará en menos de 48 horas.
+        </p>
+        <p style="margin-top: 14px;">
+          La información que nos des nos ayuda a darte una respuesta más precisa y útil.
+          Todo es confidencial — solo la usamos para asesorarte mejor.
+        </p>
+        <div style="clear:both;"></div>
+      </div>
+
+      <div class="contact-layout fade-in">
+
+        <!-- FORMULARIO DE CONTACTO -->
+        <div class="contact-form-wrap">
+          <span class="section-label">// Formulario de Asesoría</span>
+          <h2 style="font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:4px; color:var(--text); margin-bottom:28px; line-height:1;">
+            SOLICITA TU ASESORÍA
+          </h2>
+
+          <form id="contactForm" action="https://formspree.io/f/xwvwprjb" method="POST" novalidate>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="contactNombre">Nombre completo *</label>
+                <input type="text" id="contactNombre" name="nombre" class="form-input"
+                       placeholder="Ej: Juan Pérez" required minlength="2">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="contactEmail">Correo electrónico *</label>
+                <input type="email" id="contactEmail" name="email" class="form-input"
+                       placeholder="Ej: juan@correo.com" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="contactEdad">Edad</label>
+                <input type="number" id="contactEdad" name="edad" class="form-input"
+                       placeholder="Ej: 24" min="10" max="99">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="contactExperiencia">Nivel de experiencia *</label>
+                <select id="contactExperiencia" name="experiencia" class="form-input form-select" required>
+                  <option value="" disabled selected>Selecciona tu nivel</option>
+                  <option value="principiante">Principiante (menos de 1 año)</option>
+                  <option value="intermedio">Intermedio (1–3 años)</option>
+                  <option value="avanzado">Avanzado (más de 3 años)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Objetivo principal *</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="objetivo" value="fuerza" required>
+                  <span>💪 Ganar fuerza</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="objetivo" value="musculo">
+                  <span>🏋️ Ganar músculo</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="objetivo" value="perder-grasa">
+                  <span>🔥 Perder grasa</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="objetivo" value="resistencia">
+                  <span>🏃 Resistencia</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">¿En qué áreas necesitas asesoría? (puede elegir varios)</label>
+              <div class="checkbox-group">
+                <label class="check-option">
+                  <input type="checkbox" name="areas" value="rutinas">
+                  <span>Rutinas de entrenamiento</span>
+                </label>
+                <label class="check-option">
+                  <input type="checkbox" name="areas" value="nutricion">
+                  <span>Nutrición y dieta</span>
+                </label>
+                <label class="check-option">
+                  <input type="checkbox" name="areas" value="suplementacion">
+                  <span>Suplementación</span>
+                </label>
+                <label class="check-option">
+                  <input type="checkbox" name="areas" value="implementos">
+                  <span>Implementos y equipamiento</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactMensaje">Cuéntanos más sobre tu situación *</label>
+              <textarea id="contactMensaje" name="mensaje" class="form-input form-textarea"
+                        placeholder="Ej: Llevo 6 meses entrenando pero no veo resultados en las piernas. Mi dieta es... Entro al gym 3 veces por semana..."
+                        required minlength="20"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="check-option">
+                <input type="checkbox" id="contactTerminos" name="terminos" required>
+                <span>Acepto que STRNG use mis datos para brindarme asesoría. No compartiremos tu información con terceros.</span>
+              </label>
+            </div>
+
+            <div id="formMsg" class="form-msg" style="display:none;"></div>
+
+            <button type="submit" class="btn btn-primary contact-submit">
+              ENVIAR SOLICITUD →
+            </button>
+
+          </form>
+        </div>
+
+        <!-- SIDEBAR DE INFO -->
+        <aside class="contact-aside">
+          <span class="section-label">// ¿Por qué contactarnos?</span>
+          <h3 style="font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:3px; color:var(--text); margin-bottom:20px; line-height:1;">
+            LO QUE OBTIENES
+          </h3>
+
+          <div class="info-box" style="margin-bottom:16px;">
+            <h4>🎯 Plan Personalizado</h4>
+            <p>No rutinas genéricas. Analizamos tu nivel, objetivo y disponibilidad para darte un plan real que funcione.</p>
+          </div>
+          <div class="info-box" style="margin-bottom:16px;">
+            <h4>🍽️ Guía Nutricional</h4>
+            <p>Distribución de macros y calórica adaptada a tu cuerpo y meta. Sin dietas milagro.</p>
+          </div>
+          <div class="info-box" style="margin-bottom:16px;">
+            <h4>💊 Suplementación Honesta</h4>
+            <p>Solo lo que realmente necesitas según tu etapa. Sin ventas innecesarias.</p>
+          </div>
+          <div class="info-box">
+            <h4>⏱️ Respuesta en 48h</h4>
+            <p>Revisamos cada consulta con atención. Te respondemos con detalle, no con respuestas automáticas.</p>
+          </div>
+
+          <!-- VIDEO YOUTUBE -->
+          <div style="margin-top:28px;">
+            <span class="section-label">// Conoce nuestro enfoque</span>
+            <h3 style="font-family:'Bebas Neue',sans-serif; font-size:1.4rem; letter-spacing:3px; color:var(--text); margin:10px 0 14px; line-height:1;">
+              FILOSOFÍA STRNG
+            </h3>
+            <div class="video-iframe-wrap">
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube-nocookie.com/embed/pZE3a4Lwq1Q"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+              </iframe>
+            </div>
+            <p style="color:var(--text3); font-size:0.78rem; margin-top:8px; font-family:'Barlow Condensed',sans-serif; letter-spacing:1px;">
+              Un vistazo a la mentalidad detrás del entrenamiento de calidad.
+            </p>
+          </div>
+
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section-block" style="background:var(--bg2);">
+    <div class="container">
+      <span class="section-label">// Preguntas Frecuentes</span>
+      <h2 class="section-title">ANTES DE ESCRIBIRNOS</h2>
+      <p class="section-sub">Quizás tu pregunta ya tiene respuesta aquí.</p>
+      <div class="faq-columns fade-in">
+        <p>
+          <strong style="color:var(--text);">¿Cuánto tiempo tardan en responder?</strong><br>
+          Respondemos en un máximo de 48 horas hábiles. Si tu consulta es urgente, indícalo en el mensaje y priorizamos tu caso.
+        </p>
+        <p>
+          <strong style="color:var(--text);">¿El servicio de asesoría tiene costo?</strong><br>
+          La asesoría inicial vía formulario es completamente gratuita. Para planes más detallados o seguimiento continuo, te informamos las opciones sin compromiso.
+        </p>
+        <p>
+          <strong style="color:var(--text);">¿Necesito saber mucho de gym para contactarlos?</strong><br>
+          Para nada. Recibimos desde personas que nunca han pisado un gimnasio hasta atletas avanzados. Adaptamos el lenguaje y el plan a tu nivel exacto.
+        </p>
+        <p>
+          <strong style="color:var(--text);">¿Me dan una dieta personalizada?</strong><br>
+          Te orientamos con distribución de macros, calorías estimadas y alimentos recomendados según tu objetivo. Para planes médicos específicos, recomendamos siempre un nutricionista certificado.
+        </p>
+        <p>
+          <strong style="color:var(--text);">¿Puedo preguntar sobre lesiones o limitaciones físicas?</strong><br>
+          Sí. Contamos con orientación para adaptar rutinas a lesiones comunes (rodilla, hombro, espalda). Sin embargo, ante lesiones graves, siempre debes consultar un médico o fisioterapeuta primero.
+        </p>
+        <p>
+          <strong style="color:var(--text);">¿Con qué frecuencia puedo escribirles?</strong><br>
+          Puedes escribirnos cuando tengas dudas. No hay límite de consultas. Queremos que progreses, y eso requiere comunicación continua y ajustes periódicos.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote-section fade-in">
+    <p class="quote-text">"El primer paso es el más difícil. <em>Escríbenos y lo damos juntos.</em>"</p>
+    <p class="quote-author">— Equipo STRNG</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-text">STRNG</span>
+      <p>Sin excusas, sin atajos.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Páginas</h4>
+      <ul>
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="rutinas.html">Rutinas</a></li>
+        <li><a href="alimentacion.html">Alimentación</a></li>
+        <li><a href="suplementacion.html">Suplementación</a></li>
+        <li><a href="implementos.html">Implementos GYM</a></li>
+        <li><a href="IMC.html">Calculadora IMC</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="tienda.html">🛒 Tienda</a></li>
+        <li><a href="rastreo.html">📦 Rastrear</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="mailto:contacto@strngfit.com">contacto@strngfit.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 STRNG. Todos los derechos reservados.</p>
+    <p>Hecho para los que no se rinden.</p>
+  </div>
+</footer>
+
+<!-- AUDIO -->
+<audio id="bgAudio" loop preload="none" style="display:none;">
+  <source src="../assets/sounds/audio_fondo.mp3" type="audio/mpeg">
+</audio>
+
+<button id="audioBtn" title="Activar/desactivar música">🔇</button>
+
+<script src="../js/script.js"></script>
+</body>
+</html>
