@@ -18,8 +18,6 @@ STRNG/
 └── README.md
 ```
 
-No existen `index.html`, `pages/`, `css/`, `js/` ni `assets/` sueltos en la raíz. El HTML que permanece dentro de `client/src/legacy` es contenido interno del frontend React y conserva literalmente el markup original para no modificar la interfaz.
-
 ## Ejecución
 
 El archivo `server/.env` incluido en este paquete conserva la configuración de MongoDB Atlas del proyecto original.
