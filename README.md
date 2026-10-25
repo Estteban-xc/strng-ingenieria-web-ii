@@ -114,3 +114,11 @@ CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
 ```
 
 No se deben publicar los archivos `.env`. Para compartir el proyecto, utiliza un archivo `.env.example` con valores ficticios.
+
+
+## Aplicación de la Guía 7
+
+El proyecto STRNG utiliza Git y GitHub para administrar configuraciones, controlar cambios, trabajar con ramas y conservar la trazabilidad del desarrollo.
+
+La rama `guia07-control-versiones` se creó para documentar la aplicación de estas prácticas en el proyecto.
+
