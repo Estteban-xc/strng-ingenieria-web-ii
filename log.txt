@@ -1,0 +1,11 @@
+*   ac76d85 (HEAD -> main, origin/main) Merge pull request #1 from Estteban-xc/guia07-control-versiones
+|\  
+| *   b9d81c3 Merge branch 'main' into guia07-control-versiones
+| |\  
+| |/  
+|/|   
+* | 5274e72 Update README.md
+* | d02c3e8 Revise .env sharing instructions in README
+| * e7cee55 (origin/guia07-control-versiones, guia07-control-versiones) docs: documentar aplicación de la guía 7
+|/  
+* 84d45b3 Implementacion de los siete módulos de Ingeniería Web II a STRNG
