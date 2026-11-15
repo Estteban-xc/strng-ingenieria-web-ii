@@ -1,0 +1,30 @@
+{
+  "title": "STRNG API Overview",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "15s",
+  "time": { "from": "now-30m", "to": "now" },
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "HTTP request rate",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "targets": [{ "expr": "sum(rate(strng_http_requests_total[5m]))", "legendFormat": "requests/s" }]
+    },
+    {
+      "id": 2,
+      "type": "timeseries",
+      "title": "HTTP 5xx errors",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [{ "expr": "sum(rate(strng_http_requests_total{status_code=~\"5..\"}[5m]))", "legendFormat": "5xx/s" }]
+    },
+    {
+      "id": 3,
+      "type": "timeseries",
+      "title": "Average request duration",
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 8 },
+      "targets": [{ "expr": "sum(rate(strng_http_request_duration_seconds_sum[5m])) / sum(rate(strng_http_request_duration_seconds_count[5m]))", "legendFormat": "seconds" }]
+    }
+  ]
+}

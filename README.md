@@ -18,6 +18,8 @@ STRNG/
 └── README.md
 ```
 
+No existen `index.html`, `pages/`, `css/`, `js/` ni `assets/` sueltos en la raíz. El HTML que permanece dentro de `client/src/legacy` es contenido interno del frontend React y conserva literalmente el markup original para no modificar la interfaz.
+
 ## Ejecución
 
 El archivo `server/.env` incluido en este paquete conserva la configuración de MongoDB Atlas del proyecto original.
@@ -113,10 +115,20 @@ CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
 
 No se deben publicar los archivos `.env`. Para compartir el proyecto, utiliza un archivo `.env.example` con valores ficticios.
 
+## Segundo módulo de Ingeniería Web II
 
-## Aplicación de la Guía 7
+### Computación en la nube
 
-El proyecto STRNG utiliza Git y GitHub para administrar configuraciones, controlar cambios, trabajar con ramas y conservar la trazabilidad del desarrollo.
+La clasificación de servicios y la arquitectura de despliegue están documentadas en `docs/cloud-architecture.md`. STRNG utiliza MongoDB Atlas, GitHub y GitHub Pages como servicios administrados, y mantiene una representación IaaS opcional en `terraform/`.
 
-La rama `guia07-control-versiones` se creó para documentar la aplicación de estas prácticas en el proyecto.
+### GitFlow y CI/CD
 
+La estrategia de ramas está descrita en `docs/gitflow.md`. Los workflows de GitHub Actions se encuentran en `.github/workflows/`: `ci.yml` valida el build del cliente, las pruebas de la API y Terraform; `deploy-pages.yml` publica el frontend compilado en GitHub Pages.
+
+### Infraestructura como código y gestión de secretos
+
+La documentación de Terraform y gestión de secretos está disponible en español en `docs/terraform-secrets.md`. Terraform utiliza variables y una AMI vacía por defecto para que la validación no aprovisione infraestructura facturable. Los valores privados permanecen en variables de entorno o secretos protegidos de CI.
+
+### Observability and scalability
+
+The API exposes Prometheus metrics at `/api/metrics`. The design and the Prometheus/Grafana integration are described in `docs/observability.md`. The separation between frontend, API and MongoDB supports horizontal scaling of the stateless backend.

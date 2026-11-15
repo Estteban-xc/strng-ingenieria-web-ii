@@ -17,6 +17,10 @@ async function request(path, options = {}) {
 test('health y catálogo público', async () => {
   const health = await request('/health');
   assert.equal(health.response.status, 200);
+  const metrics = await fetch(base + '/metrics');
+  const metricsText = await metrics.text();
+  assert.equal(metrics.status, 200);
+  assert.match(metricsText, /strng_http_requests_total/);
   const products = await request('/productos?disponible=true');
   assert.equal(products.response.status, 200);
   assert.ok(Array.isArray(products.data.productos));
