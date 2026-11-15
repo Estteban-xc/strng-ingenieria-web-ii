@@ -7,6 +7,7 @@ const rateLimit = require('express-rate-limit');
 const swaggerUi = require('swagger-ui-express');
 const openapi = require('../docs/openapi.json');
 const { rejectUnsafeKeys } = require('./middleware/security');
+const { metricsMiddleware } = require('./middleware/metrics');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -17,6 +18,7 @@ app.use(helmet());
 app.use(cors({ origin: (origin, callback) => !origin || allowedOrigins.includes(origin) ? callback(null, true) : callback(new Error('Origen no permitido')), methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], allowedHeaders: ['Content-Type', 'Authorization'] }));
 app.use(express.json({ limit: '100kb' }));
 app.use(express.urlencoded({ extended: true }));
+app.use(metricsMiddleware);
 app.use(rejectUnsafeKeys);
 app.use('/api', rateLimit({ windowMs: 15 * 60 * 1000, limit: 300, standardHeaders: true, legacyHeaders: false }));
 app.use('/api/auth/login', rateLimit({ windowMs: 15 * 60 * 1000, limit: 10, standardHeaders: true, legacyHeaders: false }));
@@ -26,6 +28,7 @@ app.use('/api/auth',         require('./routes/auth'));
 app.use('/api/productos',    require('./routes/products'));
 app.use('/api/paquetes',     require('./routes/paquetes'));
 app.use('/api/repartidores', require('./routes/repartidores'));
+app.use('/api/metrics',       require('./routes/metrics'));
 // Swagger UI (tercero) usa evaluación dinámica para sus snippets. La excepción
 // queda limitada a /api-docs; la API conserva la CSP estricta de Helmet.
 app.use('/api-docs', helmet({ contentSecurityPolicy: { directives: {
