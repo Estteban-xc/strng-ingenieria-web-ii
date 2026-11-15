@@ -12,5 +12,6 @@ resource "aws_instance" "strng_backend" {
   count         = var.ami_id == "" ? 0 : 1
   ami           = var.ami_id
   instance_type = var.instance_type
+  associate_public_ip_address = false
   tags          = local.tags
 }
