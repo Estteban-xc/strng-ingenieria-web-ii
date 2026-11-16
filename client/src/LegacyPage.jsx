@@ -2,38 +2,80 @@ import { useEffect, useMemo, useRef } from 'react'
 
 const BASE_PATH = '/strng-ingenieria-web-ii/'
 
+const ROUTES = {
+  rutinas: 'rutinas',
+  alimentacion: 'alimentacion',
+  suplementacion: 'suplementacion',
+  implementos: 'implementos',
+  imc: 'imc',
+  contacto: 'contacto',
+  tienda: 'tienda',
+  rastreo: 'rastreo',
+  admin: 'admin'
+}
+
 function prepareMarkup(source) {
   const doc = new DOMParser().parseFromString(source, 'text/html')
 
   const rewrite = value => {
     if (!value) return value
 
-    if (/^(https?:|data:|#|mailto:|tel:|javascript: )/i.test(value)) {
+    if (/^(https?:|data:|mailto:|tel:|javascript: )/i.test(value)) {
       return value
     }
 
+    const original = value.trim()
+
+    // Recursos públicos: imágenes, iconos, fuentes, sonidos y videos.
+    const assetsMatch = original.match(
+      /^(?:\.\.\/|\.\/)?(?:\/)?assets\/(.+)$/i
+    )
+
+    if (assetsMatch) {
+      return `${BASE_PATH}assets/${assetsMatch[1]}`
+    }
+
+    // Enlace a la página de inicio.
+    const normalized = original
+      .replace(/^(\.\.\/|\.\/)+/, '')
+      .replace(/^\/+/, '')
+
+    if (
+      normalized === 'index.html' ||
+      normalized === '' ||
+      normalized === '/'
+    ) {
+      return `${BASE_PATH}#/`
+    }
+
+    // Enlaces internos de las páginas de STRNG.
+    const routeMatch = normalized.match(
+      /(?:^|\/)(rutinas|alimentacion|suplementacion|implementos|IMC|contacto|tienda|rastreo|admin)\.html(?:\?(.*))?$/i
+    )
+
+    if (routeMatch) {
+      const routeName = routeMatch[1].toLowerCase()
+      const route = ROUTES[routeName] || routeName
+      const query = routeMatch[2] ? `?${routeMatch[2]}` : ''
+
+      return `${BASE_PATH}#/${route}${query}`
+    }
+
+    // Enlaces internos que ya vienen sin extensión .html.
+    const directRouteMatch = normalized.match(
+      /^(rutinas|alimentacion|suplementacion|implementos|imc|contacto|tienda|rastreo|admin)(?:\?(.*))?$/i
+    )
+
+    if (directRouteMatch) {
+      const route = directRouteMatch[1].toLowerCase()
+      const query = directRouteMatch[2]
+        ? `?${directRouteMatch[2]}`
+        : ''
+
+      return `${BASE_PATH}#/${route}${query}`
+    }
+
     return value
-      .replace(/^\.\.\/assets\//, `${BASE_PATH}assets/`)
-      .replace(/^assets\//, `${BASE_PATH}assets/`)
-      .replace(/^\/assets\//, `${BASE_PATH}assets/`)
-      .replace(/^\.\.\/index\.html$/, `${BASE_PATH}#/`)
-      .replace(/^index\.html$/, `${BASE_PATH}#/`)
-      .replace(/^\.\.\/pages\//, `${BASE_PATH}#/`)
-      .replace(/^pages\//, `${BASE_PATH}#/`)
-      .replace(/(^|\/)rutinas\.html/g, '$1#/rutinas')
-      .replace(/(^|\/)alimentacion\.html/g, '$1#/alimentacion')
-      .replace(/(^|\/)suplementacion\.html/g, '$1#/suplementacion')
-      .replace(/(^|\/)implementos\.html/g, '$1#/implementos')
-      .replace(/(^|\/)IMC\.html/g, '$1#/imc')
-      .replace(/(^|\/)contacto\.html/g, '$1#/contacto')
-      .replace(/(^|\/)tienda\.html/g, '$1#/tienda')
-      .replace(/(^|\/)rastreo\.html/g, '$1#/rastreo')
-      .replace(/(^|\/)admin\.html/g, '$1#/admin')
-      .replace(
-        /^\/(rutinas|alimentacion|suplementacion|implementos|imc|contacto|tienda|rastreo|admin)$/,
-        `${BASE_PATH}#$1`
-      )
-      .replace(/^\/$/, `${BASE_PATH}#/`)
   }
 
   const scripts = [...doc.querySelectorAll('script')].map(node => ({
@@ -116,13 +158,13 @@ export default function LegacyPage({ source, title }) {
         const script = document.createElement('script')
 
         if (src) {
-          const rewrittenSrc = src.includes('js/script.js')
+          const scriptSrc = src.includes('js/script.js')
             ? `${BASE_PATH}legacy-script.js`
             : src.startsWith('/')
               ? `${BASE_PATH}${src.slice(1)}`
               : src
 
-          script.src = rewrittenSrc
+          script.src = scriptSrc
 
           await new Promise(resolve => {
             script.onload = resolve
